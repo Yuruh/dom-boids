@@ -6,6 +6,8 @@ https://en.wikipedia.org/wiki/Boids
 
 Le plus compliqué va être de parser le DOM. Au lieu de partir du dom, partir d'un screenshot et se baser sur les couleurs ?
 
+
+
 Possible de générer un screenshot à partir dun DOM ? Moteur headless comme pour les tests ?
 
 https://github.com/tsayen/dom-to-image  , à utiliser ou pour voir comment parser le dom
@@ -13,3 +15,5 @@ https://github.com/tsayen/dom-to-image  , à utiliser ou pour voir comment parse
 En js `window.innerWidth` et `window.innerHeight` dimensions en pixel
 
 Sous-diviser la zone explorable en quadtree
+
+document.documentElement.innerHTML;
