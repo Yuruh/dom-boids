@@ -17,3 +17,5 @@ En js `window.innerWidth` et `window.innerHeight` dimensions en pixel
 Sous-diviser la zone explorable en quadtree
 
 document.documentElement.innerHTML;
+
+UDP ?  API Gateway en go qui communique vers CPP en RPC ? (pour train go + cpp ?)
