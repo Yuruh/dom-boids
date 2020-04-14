@@ -18,4 +18,6 @@ Sous-diviser la zone explorable en quadtree
 
 document.documentElement.innerHTML;
 
-UDP ?  API Gateway en go qui communique vers CPP en RPC ? (pour train go + cpp ?)
+UDP ?  Non, les browsers ne supportent pas pour des raisons de sécuriter, donc TCP / websockets, avec socket io probablement
+
+API Gateway en go qui communique vers CPP en RPC ? (pour train go + cpp ?) Pas initialement je pense, peut être si l'IA se complexifie
