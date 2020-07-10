@@ -1,0 +1,17 @@
+{
+  "name": "dom_parser",
+  "version": "1.0.0",
+  "description": "",
+    "main": "index.ts",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/dom-to-image": "^2.6.0",
+    "dom-to-image": "^2.6.0",
+    "typescript": "^3.8.3"
+  }
+}

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/antoine/Code/dom-boids/boids/Map.cpp
+iostream
+-
+algorithm
+-
+Map.h
+/home/antoine/Code/dom-boids/boids/Map.h
+
+/home/antoine/Code/dom-boids/boids/Map.h
+vector
+-
+Pos2D.h
+/home/antoine/Code/dom-boids/boids/Pos2D.h
+
+/home/antoine/Code/dom-boids/boids/Pos2D.cpp
+Pos2D.h
+/home/antoine/Code/dom-boids/boids/Pos2D.h
+
+/home/antoine/Code/dom-boids/boids/Pos2D.h
+
+/home/antoine/Code/dom-boids/boids/main.cpp
+iostream
+-
+Map.h
+/home/antoine/Code/dom-boids/boids/Map.h
+

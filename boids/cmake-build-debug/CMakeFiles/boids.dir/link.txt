@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/boids.dir/main.cpp.o CMakeFiles/boids.dir/Map.cpp.o CMakeFiles/boids.dir/Pos2D.cpp.o  -o boids 

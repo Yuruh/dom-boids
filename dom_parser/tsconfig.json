@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+     "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "allowJs": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "./index.ts"
+  ]
+}
