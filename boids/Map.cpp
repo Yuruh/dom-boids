@@ -5,31 +5,79 @@
 #include <iostream>
 #include <algorithm>
 #include "Map.h"
+#include "Maccros.h"
 
 
-Map::Map(): dimensions(Pos2D(10, 5)) {
-    this->agents.push_back(Pos2D(4, 2));
+bool isBoid(int x, int y, const Flock &flock) {
+
 }
+
+
+/*
+ * Default constructor generates a random map
+ */
+/*Map::Map(): dimensions(Pos2D(WIDTH, HEIGHT)) {
+    int nbOfBoids = std::rand() % 30 + 10;
+    for (int i = 0; i < nbOfBoids; ++i) {
+        Boid boid;
+        this->flock.addBoid(boid);
+    }
+}*/
+
+
 
 void Map::display() const {
 
 
-    struct Predicate {
-        Pos2D pos2D;
+/*    struct Predicate {
+        int x;
+        int y;
 
-        explicit Predicate(Pos2D pos): pos2D(pos) {}
-        bool operator()(Pos2D pos) const { return pos == pos2D; }
-    };
+        explicit Predicate(int x, int y): x(x), y(y) {}
 
-    for (int i = 0; i < this->dimensions.y; ++i) {
-        for (int j = 0; j < this->dimensions.x; ++j) {
-            if (std::any_of(this->agents.cbegin(), this->agents.cend(), Predicate(Pos2D(j, i))
-            )) {
+        bool operator()(Boid boid) const {
+            std::cout<<"allo\n";
+            return boid.getPosition().x == x && boid.getPosition().y == y;
+        }
+    };*/
+    for (int i = 0; i < this->dimensions.x + 2; ++i) {
+        std::cout << "-";
+    }
+    std::cout << std::endl;
+    for (int y = 0; y < this->dimensions.y; y++) {
+        std::cout << "|";
+        for (int x = 0; x < this->dimensions.x; ++x) {
+            if (this->isBoid(x, y)) {
+                std::cout << "o";
+            } else {
+                std::cout << " ";
+            }
+/*            if (std::any_of(this->flock.getBoids().cbegin(), this->flock.getBoids().cend(), Predicate(i, j))) {
                 std::cout << "o";
             } else {
                 std::cout << "x";
-            }
+            }*/
         }
-        std::cout  << std::endl;
+        std::cout  <<  "|" << std::endl;
     }
+    for (int i = 0; i < this->dimensions.x + 2; ++i) {
+        std::cout << "-";
+    }
+    std::cout << std::endl;
+
+}
+
+Map::Map(Flock &flock, Pos2D dimensions): flock(flock), dimensions(dimensions) {
+
+}
+
+bool Map::isBoid(int x, int y) const {
+    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
+        const Boid &boid = this->flock.getBoids()[i];
+        // The modulo prevents out of bound, temporary solution until we handle collisions
+        if (boid.getPosition().x == x && boid.getPosition().y == y) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -123,6 +123,87 @@ boids/fast:
 	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/build
 .PHONY : boids/fast
 
+Boid.o: Boid.cpp.o
+
+.PHONY : Boid.o
+
+# target to build an object file
+Boid.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.o
+.PHONY : Boid.cpp.o
+
+Boid.i: Boid.cpp.i
+
+.PHONY : Boid.i
+
+# target to preprocess a source file
+Boid.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.i
+.PHONY : Boid.cpp.i
+
+Boid.s: Boid.cpp.s
+
+.PHONY : Boid.s
+
+# target to generate assembly for a file
+Boid.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.s
+.PHONY : Boid.cpp.s
+
+Core.o: Core.cpp.o
+
+.PHONY : Core.o
+
+# target to build an object file
+Core.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.o
+.PHONY : Core.cpp.o
+
+Core.i: Core.cpp.i
+
+.PHONY : Core.i
+
+# target to preprocess a source file
+Core.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.i
+.PHONY : Core.cpp.i
+
+Core.s: Core.cpp.s
+
+.PHONY : Core.s
+
+# target to generate assembly for a file
+Core.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.s
+.PHONY : Core.cpp.s
+
+Flock.o: Flock.cpp.o
+
+.PHONY : Flock.o
+
+# target to build an object file
+Flock.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.o
+.PHONY : Flock.cpp.o
+
+Flock.i: Flock.cpp.i
+
+.PHONY : Flock.i
+
+# target to preprocess a source file
+Flock.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.i
+.PHONY : Flock.cpp.i
+
+Flock.s: Flock.cpp.s
+
+.PHONY : Flock.s
+
+# target to generate assembly for a file
+Flock.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.s
+.PHONY : Flock.cpp.s
+
 Map.o: Map.cpp.o
 
 .PHONY : Map.o
@@ -213,6 +294,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... boids"
 	@echo "... edit_cache"
+	@echo "... Boid.o"
+	@echo "... Boid.i"
+	@echo "... Boid.s"
+	@echo "... Core.o"
+	@echo "... Core.i"
+	@echo "... Core.s"
+	@echo "... Flock.o"
+	@echo "... Flock.i"
+	@echo "... Flock.s"
 	@echo "... Map.o"
 	@echo "... Map.i"
 	@echo "... Map.s"

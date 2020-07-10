@@ -84,6 +84,27 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Boid.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Boid.h">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Core.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Core.h">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Flock.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Flock.h">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Maccros.h">
+			<Option target="boids"/>
+		</Unit>
 		<Unit filename="/home/antoine/Code/dom-boids/boids/Map.cpp">
 			<Option target="boids"/>
 		</Unit>

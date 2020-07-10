@@ -13,7 +13,10 @@ struct Pos2D {
 
     bool operator==(const Pos2D& pos) const;
 
+    Pos2D operator+(const Pos2D& pos) const;
+    Pos2D operator+=(const Pos2D& pos) const;
 
+    Pos2D operator/(unsigned int n) const;
 };
 
 

@@ -6,29 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/antoine/Code/dom-boids/boids/Map.cpp
-iostream
--
-algorithm
--
-Map.h
-/home/antoine/Code/dom-boids/boids/Map.h
+/home/antoine/Code/dom-boids/boids/Boid.h
+Pos2D.h
+/home/antoine/Code/dom-boids/boids/Pos2D.h
 
-/home/antoine/Code/dom-boids/boids/Map.h
+/home/antoine/Code/dom-boids/boids/Flock.cpp
+Flock.h
+/home/antoine/Code/dom-boids/boids/Flock.h
+Maccros.h
+/home/antoine/Code/dom-boids/boids/Maccros.h
+
+/home/antoine/Code/dom-boids/boids/Flock.h
 vector
 -
-Pos2D.h
-/home/antoine/Code/dom-boids/boids/Pos2D.h
+Boid.h
+/home/antoine/Code/dom-boids/boids/Boid.h
 
-/home/antoine/Code/dom-boids/boids/Pos2D.cpp
-Pos2D.h
-/home/antoine/Code/dom-boids/boids/Pos2D.h
+/home/antoine/Code/dom-boids/boids/Maccros.h
 
 /home/antoine/Code/dom-boids/boids/Pos2D.h
-
-/home/antoine/Code/dom-boids/boids/main.cpp
-iostream
--
-Map.h
-/home/antoine/Code/dom-boids/boids/Map.h
 

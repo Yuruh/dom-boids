@@ -5,8 +5,9 @@
 #ifndef BOIDS_MAP_H
 #define BOIDS_MAP_H
 
-#import <vector>
+#include <vector>
 #include "Pos2D.h"
+#include "Flock.h"
 
 /*
  * Comme input on va avoir:
@@ -20,10 +21,11 @@
 class Map {
 private:
     Pos2D dimensions;
-    std::vector<Pos2D> agents;
+    const Flock &flock;
 
+    bool isBoid(int x, int y) const;
 public:
-    Map();
+    Map(Flock &flock, Pos2D dimensions);
 
     /*
      * Print the map to stdout
