@@ -7,12 +7,6 @@
 #include "Map.h"
 #include "Maccros.h"
 
-
-bool isBoid(int x, int y, const Flock &flock) {
-
-}
-
-
 /*
  * Default constructor generates a random map
  */
@@ -73,9 +67,11 @@ Map::Map(Flock &flock, Pos2D dimensions): flock(flock), dimensions(dimensions) {
 
 bool Map::isBoid(int x, int y) const {
     for (int i = 0; i < this->flock.getBoids().size(); ++i) {
-        const Boid &boid = this->flock.getBoids()[i];
-        // The modulo prevents out of bound, temporary solution until we handle collisions
-        if (boid.getPosition().x == x && boid.getPosition().y == y) {
+
+        const Boid boid = this->flock.getBoids()[i];
+
+
+        if (static_cast<int>(boid.getPosition().x) == x && static_cast<int>(boid.getPosition().y) == y) {
             return true;
         }
     }

@@ -23,6 +23,7 @@ public:
     Pos2D getDirection() const;
     bool operator==(const Boid &boid) const;
 
+    void setDirection(const Pos2D &dir);
     void setPosition(Pos2D pos);
 
 };

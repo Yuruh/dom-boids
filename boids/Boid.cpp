@@ -12,6 +12,7 @@ Pos2D Boid::getPosition() const {
 
 Boid::Boid(): direction(Pos2D(std::rand() % 2 - 1, std::rand() % 2 - 1)), position(std::rand() % WIDTH, std::rand() % HEIGHT)
 {
+    this->direction.normalize();
     this->speed = 2;
 }
 
@@ -28,4 +29,9 @@ void Boid::setPosition(Pos2D pos) {
 
 Pos2D Boid::getDirection() const {
     return this->direction;
+}
+
+void Boid::setDirection(const Pos2D &dir) {
+    this->direction = dir;
+    this->direction.normalize();
 }

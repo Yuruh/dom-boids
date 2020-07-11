@@ -11,7 +11,7 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     Flock flock;
-    int nbOfBoids = /*std::rand() % 30 + */5;
+    int nbOfBoids = /*std::rand() % 30 + */50;
     for (int i = 0; i < nbOfBoids; ++i) {
         Boid boid;
         std::cout << boid.getPosition().x << " " << boid.getPosition().y << std::endl;
@@ -23,7 +23,8 @@ int main() {
     while (true) {
         t = clock();
         flock.update((float)t / CLOCKS_PER_SEC);
-        sleep(1);
+
+        usleep(500 * 1000);
         map.display();
     }
 
