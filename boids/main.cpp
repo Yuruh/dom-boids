@@ -11,10 +11,9 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     Flock flock;
-    int nbOfBoids = /*std::rand() % 30 + */50;
+    int nbOfBoids = /*std::rand() % 30 + */20;
     for (int i = 0; i < nbOfBoids; ++i) {
         Boid boid;
-        std::cout << boid.getPosition().x << " " << boid.getPosition().y << std::endl;
         flock.addBoid(boid);
     }
     Map map(flock, Pos2D(WIDTH, HEIGHT));

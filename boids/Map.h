@@ -24,6 +24,7 @@ private:
     const Flock &flock;
 
     bool isBoid(int x, int y) const;
+    int getBoidIndex(int x, int y) const;
 public:
     Map(Flock &flock, Pos2D dimensions);
 

@@ -41,8 +41,9 @@ void Map::display() const {
     for (int y = 0; y < this->dimensions.y; y++) {
         std::cout << "|";
         for (int x = 0; x < this->dimensions.x; ++x) {
-            if (this->isBoid(x, y)) {
-                std::cout << "o";
+            int idx = this->getBoidIndex(x, y);
+            if (idx > -1) {
+                std::cout << this->flock.getBoids()[idx].getDisplay();
             } else {
                 std::cout << " ";
             }
@@ -76,4 +77,17 @@ bool Map::isBoid(int x, int y) const {
         }
     }
     return false;
+}
+
+int Map::getBoidIndex(int x, int y) const {
+    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
+
+        const Boid boid = this->flock.getBoids()[i];
+
+
+        if (static_cast<int>(boid.getPosition().x) == x && static_cast<int>(boid.getPosition().y) == y) {
+            return i;
+        }
+    }
+    return -1;
 }

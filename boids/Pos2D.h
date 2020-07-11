@@ -9,6 +9,7 @@
 #include <iostream>
 
 struct Pos2D {
+    Pos2D();
     Pos2D(float x, float y);
     float x;
     float y;
@@ -22,6 +23,7 @@ struct Pos2D {
 
     void normalize();
     float getMagnitude() const;
+    float distanceWith(const Pos2D& other) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Pos2D& pos);

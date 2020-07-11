@@ -42,6 +42,17 @@ float Pos2D::getMagnitude() const {
     return std::sqrt(this->x * this->x + this->y * this->y);
 }
 
+Pos2D::Pos2D() {
+    this->x = 0;
+    this->y = 0;
+
+}
+
+float Pos2D::distanceWith(const Pos2D &other) const {
+    return std::sqrt((other.x - this->x) * (other.x - this->x) + (other.y - this->y) * (other.y - this->y));
+}
+
+
 std::ostream& operator<<(std::ostream &os, const Pos2D &pos) {
     os << pos.x << " " << pos.y;
     return os;

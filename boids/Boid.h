@@ -15,6 +15,8 @@ private:
     Pos2D position;
     Pos2D direction;
 
+    char display;
+
     // In units per second
     float speed;
 public:
@@ -22,9 +24,12 @@ public:
     Pos2D getPosition() const;
     Pos2D getDirection() const;
     bool operator==(const Boid &boid) const;
+    bool operator!=(const Boid &boid) const;
 
     void setDirection(const Pos2D &dir);
     void setPosition(Pos2D pos);
+
+    char getDisplay() const;
 
 };
 

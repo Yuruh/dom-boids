@@ -17,6 +17,7 @@ Pos2D Flock::centreOfMass() {
     return accumulator / this->boids.size();
 }
 
+
 void Flock::addBoid(const Boid &boid) {
     this->boids.push_back(boid);
 }
@@ -31,8 +32,9 @@ void Flock::update(float elapsedTimeSec) {
     for (Boid &boid : this->boids) {
 
         Pos2D directionTowardsCenter = (center - boid.getPosition());
+        Pos2D avoidOthers = this->avoidVector(boid);
 
-        boid.setDirection(boid.getDirection() + directionTowardsCenter);
+        boid.setDirection(boid.getDirection() + directionTowardsCenter + avoidOthers);
 
 
         float nextPosX = (boid.getPosition().x + boid.getDirection().x * elapsedTimeSec);
@@ -51,5 +53,18 @@ void Flock::update(float elapsedTimeSec) {
         }
         boid.setPosition(Pos2D(nextPosX, nextPosY));
     }
+}
+
+Pos2D Flock::avoidVector(const Boid &boid) {
+    Pos2D ret;
+
+    int distanceMin = 5;
+
+    for (const Boid &boid_it : this->boids) {
+        if (boid != boid_it && boid_it.getPosition().distanceWith(boid.getPosition()) < distanceMin) {
+            ret = ret - (boid_it.getPosition() - boid.getPosition());
+        }
+    }
+    return ret;
 }
 
