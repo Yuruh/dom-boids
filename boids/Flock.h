@@ -21,7 +21,8 @@ private:
     /*
      * Compute the center position of all boids
      */
-    Pos2D centreOfMass();
+    Pos2D centreOfMass() const;
+    Pos2D centreOfDirection() const;
     Pos2D avoidVector(const Boid &boid);
 
 public:
