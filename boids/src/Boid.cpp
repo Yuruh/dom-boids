@@ -3,8 +3,8 @@
 //
 
 #include <cstdlib>
-#include "Boid.h"
-#include "Maccros.h"
+#include "../include/Boid.h"
+#include "../include/Maccros.h"
 
 Pos2D Boid::getPosition() const {
     return this->position;

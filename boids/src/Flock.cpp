@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "Flock.h"
-#include "Maccros.h"
+#include "../include/Flock.h"
+#include "../include/Maccros.h"
 
 Pos2D Flock::centreOfMass() const {
     Pos2D accumulator(0, 0);

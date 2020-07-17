@@ -3,7 +3,9 @@ RUN apt-get update
 RUN apt-get install -y \
     cmake \
     g++ \
-    zlib1g-dev
+    zlib1g-dev \
+    libcpprest-dev
+
 
 COPY . .
 

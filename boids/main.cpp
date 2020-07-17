@@ -1,11 +1,48 @@
+#include <memory>
+
 #include <iostream>
 #include <ctime>
 #include <zconf.h>
-#include "Map.h"
-#include "Maccros.h"
+#include "include/Map.h"
+#include "include/Maccros.h"
+#include "include/HttpServer.h"
+
+std::unique_ptr<HttpServer> g_httpHandler;
+
+void on_initialize(const std::string& address)
+{
+
+
+    uri_builder uri(address);
+
+
+    auto addr = uri.to_uri().to_string();
+    g_httpHandler = std::make_unique<HttpServer>(addr);
+    g_httpHandler->open().wait();
+
+    std::cout << "Listening for requests at: " << addr << std::endl;
+}
+
+void on_shutdown()
+{
+    g_httpHandler->close().wait();
+}
 
 
 int main() {
+    std::string port = "34568";
+    std::string address = "http://127.0.0.1:";
+    address.append(port);
+
+    on_initialize(address);
+    std::cout << "Press ENTER to exit." << std::endl;
+
+    std::string line;
+    std::getline(std::cin, line);
+
+    on_shutdown();
+
+
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     std::cout << "Hello, World!" << std::endl;
@@ -29,3 +66,7 @@ int main() {
 
     return 0;
 }
+
+
+
+

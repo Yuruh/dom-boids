@@ -3,7 +3,7 @@
 //
 
 #include <cmath>
-#include "Pos2D.h"
+#include "../include/Pos2D.h"
 
 bool Pos2D::operator==(const Pos2D &pos) const {
     return pos.x == this->x && pos.y == this->y;
