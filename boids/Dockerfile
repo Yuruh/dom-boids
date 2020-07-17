@@ -17,5 +17,7 @@ RUN cmake ..
 
 RUN make
 
+EXPOSE 8080
+
 CMD ./boids
 

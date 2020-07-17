@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(boids)
 
-set(Casablanca_LIBRARIES "-lboost_system -lcrypto -lssl -lcpprest")
+set(Casablanca_LIBRARIES "-lboost_system -lcrypto -lssl -lcpprest -lpthread")
 
 set(CMAKE_CXX_STANDARD 17)
 
