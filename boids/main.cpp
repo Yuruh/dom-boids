@@ -9,15 +9,14 @@
 
 std::unique_ptr<HttpServer> g_httpHandler;
 
-void on_initialize(const std::string& address)
-{
-
+void on_initialize(const std::string& address) {
 
     uri_builder uri(address);
 
 
     auto addr = uri.to_uri().to_string();
     g_httpHandler = std::make_unique<HttpServer>(addr);
+    std::cout << "Launching http handler..." << std::endl;
     g_httpHandler->open().wait();
 
     std::cout << "Listening for requests at: " << addr << std::endl;
@@ -25,12 +24,14 @@ void on_initialize(const std::string& address)
 
 void on_shutdown()
 {
+    std::cout << "Closing http handler..." << std::endl;
     g_httpHandler->close().wait();
+    std::cout << "Http handler closed" << std::endl;
 }
 
 
 int main() {
-    std::string port = "34568";
+    std::string port = "8080";
     std::string address = "http://127.0.0.1:";
     address.append(port);
 
@@ -41,14 +42,14 @@ int main() {
     std::getline(std::cin, line);
 
     on_shutdown();
-
+/*
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     std::cout << "Hello, World!" << std::endl;
 
     Flock flock;
-    int nbOfBoids = /*std::rand() % 30 + */10;
+    int nbOfBoids = 10;
     for (int i = 0; i < nbOfBoids; ++i) {
         Boid boid;
         flock.addBoid(boid);
@@ -64,7 +65,7 @@ int main() {
         map.display();
     }
 
-    return 0;
+    return 0;*/
 }
 
 

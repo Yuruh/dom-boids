@@ -18,7 +18,7 @@ HttpServer::~HttpServer() {
 }
 
 void HttpServer::handle_get(http_request message) {
-    std::cout <<  "bite" << message.to_string() << std::endl;
+    std::cout << message.to_string() << std::endl;
     message.reply(status_codes::OK,message.to_string());
 
 /*    auto paths = http::uri::split_path(http::uri::decode(message.relative_uri().path()));

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Map {
+  Pos2D dimensions = 1;
+}
+
+message Pos2D {
+    float x = 1;
+    float y = 2;
+}

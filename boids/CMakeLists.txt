@@ -3,8 +3,14 @@ project(boids)
 
 set(Casablanca_LIBRARIES "-lboost_system -lcrypto -lssl -lcpprest -lpthread")
 
+set(PROTOBUF_LIBRARY "-lprotobuf")
+
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(boids main.cpp src/Map.cpp include/Map.h src/Pos2D.cpp include/Pos2D.h src/Core.cpp include/Core.h src/Boid.cpp include/Boid.h src/Flock.cpp include/Flock.h include/Maccros.h src/HttpServer.cpp include/HttpServer.h)
+#ADD_SUBDIRECTORY(proto)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(boids ${Casablanca_LIBRARIES})
+add_executable(boids main.cpp map.pb.h map.pb.cc src/Map.cpp include/Map.h src/Pos2D.cpp include/Pos2D.h src/Core.cpp include/Core.h src/Boid.cpp include/Boid.h src/Flock.cpp include/Flock.h include/Maccros.h src/HttpServer.cpp include/HttpServer.h)
+
+TARGET_LINK_LIBRARIES(boids ${Casablanca_LIBRARIES} ${PROTOBUF_LIBRARY})
+#TARGET_LINK_LIBRARIES(boids proto ${PROTOBUF_LIBRARY})
