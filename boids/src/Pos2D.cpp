@@ -65,3 +65,9 @@ Pos2D &operator<<(Pos2D &out, const Protobuf::Pos2D &pos) {
 
     return out;
 }
+
+Protobuf::Pos2D &operator>>(const Pos2D &in, Protobuf::Pos2D &pos) {
+    pos.set_x(in.x);
+    pos.set_y(in.y);
+    return pos;
+}

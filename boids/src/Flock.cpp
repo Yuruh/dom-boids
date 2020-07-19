@@ -30,8 +30,6 @@ Pos2D Flock::centreOfDirection() const {
     return accumulator;
 }
 
-
-
 void Flock::addBoid(const Boid &boid) {
     this->boids.push_back(boid);
 }
@@ -40,7 +38,8 @@ const std::vector<Boid> Flock::getBoids() const {
     return this->boids;
 }
 
-void Flock::update(float elapsedTimeSec) {
+// TODO take map as input or smth
+void Flock::update(float elapsedTimeSec, const Map &map) {
     Pos2D center = this->centreOfMass();
 
     for (Boid &boid : this->boids) {
@@ -60,16 +59,16 @@ void Flock::update(float elapsedTimeSec) {
          * To do : handle obstacles, turn around, and no multiple boids on same case
          */
         if (nextPosX < 0) {
-            nextPosX += WIDTH;
+            nextPosX += map.getDimensions().x;
         }
-        if (nextPosX >= WIDTH) {
-            nextPosX -= WIDTH;
+        if (nextPosX >= map.getDimensions().x) {
+            nextPosX -= map.getDimensions().x;
         }
         if (nextPosY < 0) {
-            nextPosY += HEIGHT;
+            nextPosY += map.getDimensions().y;
         }
-        if (nextPosY >= HEIGHT) {
-            nextPosY -= HEIGHT;
+        if (nextPosY >= map.getDimensions().y) {
+            nextPosY -= map.getDimensions().y;
         }
 
         boid.setPosition(Pos2D(nextPosX, nextPosY));
@@ -90,3 +89,24 @@ Pos2D Flock::avoidVector(const Boid &boid) {
     return ret;
 }
 
+Flock &operator<<(Flock &out, const Protobuf::Flock &protobufFlock) {
+    protobufFlock.boids().size();
+
+    for (int i = 0; i < protobufFlock.boids().size(); ++i) {
+        Boid boid;
+        boid << protobufFlock.boids(i);
+        out.boids.push_back(boid);
+    }
+    return out;
+}
+
+Protobuf::Flock &operator>>(const Flock &out, Protobuf::Flock &protobufFlock) {
+    protobufFlock.clear_boids();
+
+    for (int i = 0; i < out.boids.size(); ++i) {
+        auto *boid = protobufFlock.add_boids();
+
+        out.boids[i] >> *boid;
+    }
+    return protobufFlock;
+}

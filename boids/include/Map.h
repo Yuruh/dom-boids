@@ -7,7 +7,6 @@
 
 #include <vector>
 #include "Pos2D.h"
-#include "Flock.h"
 #include "../map.pb.h"
 
 /*
@@ -22,12 +21,12 @@
 class Map {
 private:
     Pos2D dimensions;
-    const Flock &flock;
 
     bool isBoid(int x, int y) const;
     int getBoidIndex(int x, int y) const;
 public:
-    Map(Flock &flock, Pos2D dimensions);
+    Map();
+    explicit Map(Pos2D dimensions);
 
     /*
      * Print the map to stdout

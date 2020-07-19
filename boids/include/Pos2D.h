@@ -29,6 +29,7 @@ struct Pos2D {
 
 std::ostream& operator<<(std::ostream& os, const Pos2D& pos);
 Pos2D& operator<<(Pos2D& out, const Protobuf::Pos2D& pos);
+Protobuf::Pos2D& operator>>(const Pos2D& in, Protobuf::Pos2D& pos);
 
 
 #endif //BOIDS_POS2D_H

@@ -5,6 +5,7 @@
 #include <cpprest/filestream.h>
 #include "../include/HttpServer.h"
 #include "../include/Map.h"
+#include "../include/Flock.h"
 
 HttpServer::HttpServer() = default;
 
@@ -19,7 +20,6 @@ HttpServer::~HttpServer() = default;
 void HttpServer::handle_post(http_request message) {
 
 //    std::cout << message.body().extract() << std::endl;
-    std::cout << "allo" << std::endl;
 
     message.extract_vector().then([=](std::vector<unsigned char> c) {
         std::cout << c.size() << std::endl;
@@ -29,9 +29,38 @@ void HttpServer::handle_post(http_request message) {
 
         input.ParseFromString(s);
         std::cout <<  input.map().dimensions().x() << std::endl;
-        message.reply(status_codes::OK, "yess");
-    });
 
+        Flock flock;
+        flock << input.flock();
+
+        Map map;
+
+        map << input.map();
+
+        map.display();
+
+        // 600 frames generated
+        int refreshRate = 60;
+        int secondsOfSimulation = 10;
+        float timePerFrame = 1.0f / refreshRate;
+
+        float elapsedSec = 0;
+        Protobuf::Output output;
+        for (int i = 0; i < refreshRate * secondsOfSimulation; ++i) {
+            elapsedSec += timePerFrame;
+            flock.update(elapsedSec, map);
+
+            Protobuf::Simulation *simulation = output.add_simulations();
+            auto *protoFlock = new Protobuf::Flock();
+            flock >> *protoFlock;
+            simulation->set_allocated_flock(protoFlock);
+            simulation->set_elapsedtimesecond(elapsedSec);
+
+        }
+
+        message.reply(status_codes::OK, output.SerializeAsString(), "application/octet-stream");
+
+    });
 }
 
 

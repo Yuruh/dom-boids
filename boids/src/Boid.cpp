@@ -46,3 +46,21 @@ void Boid::setDirection(const Pos2D &dir) {
 bool Boid::operator!=(const Boid &boid) const {
     return !(*this == boid);
 }
+
+Boid &operator<<(Boid &out, const Protobuf::Boid &protobufBoid) {
+    out.direction << protobufBoid.direction();
+    out.position << protobufBoid.position();
+    return out;
+}
+
+Protobuf::Boid &operator>>(const Boid &in, Protobuf::Boid &protobufBoid) {
+    auto *direction = new Protobuf::Pos2D;
+    auto *position = new Protobuf::Pos2D;
+
+    in.direction >> *direction;
+    in.position >> *position;
+
+    protobufBoid.set_allocated_direction(direction);
+    protobufBoid.set_allocated_position(position);
+    return protobufBoid;
+}

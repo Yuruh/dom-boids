@@ -43,7 +43,7 @@ void Map::display() const {
         for (int x = 0; x < this->dimensions.x; ++x) {
             int idx = this->getBoidIndex(x, y);
             if (idx > -1) {
-                std::cout << this->flock.getBoids()[idx].getDisplay();
+//                std::cout << this->flock.getBoids()[idx].getDisplay();
             } else {
                 std::cout << " ";
             }
@@ -62,12 +62,12 @@ void Map::display() const {
 
 }
 
-Map::Map(Flock &flock, Pos2D dimensions): flock(flock), dimensions(dimensions) {
+Map::Map(Pos2D dimensions): dimensions(dimensions) {
 
 }
 
 bool Map::isBoid(int x, int y) const {
-    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
+/*    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
 
         const Boid boid = this->flock.getBoids()[i];
 
@@ -75,12 +75,12 @@ bool Map::isBoid(int x, int y) const {
         if (static_cast<int>(boid.getPosition().x) == x && static_cast<int>(boid.getPosition().y) == y) {
             return true;
         }
-    }
+    }*/
     return false;
 }
 
 int Map::getBoidIndex(int x, int y) const {
-    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
+/*    for (int i = 0; i < this->flock.getBoids().size(); ++i) {
 
         const Boid boid = this->flock.getBoids()[i];
 
@@ -88,7 +88,7 @@ int Map::getBoidIndex(int x, int y) const {
         if (static_cast<int>(boid.getPosition().x) == x && static_cast<int>(boid.getPosition().y) == y) {
             return i;
         }
-    }
+    }*/
     return -1;
 }
 
@@ -99,4 +99,8 @@ Map &operator<<(Map &out, const Protobuf::Map &protobufMap) {
 
 Pos2D Map::getDimensions() const {
     return this->dimensions;
+}
+
+Map::Map(): dimensions(Pos2D()) {
+
 }

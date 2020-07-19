@@ -31,6 +31,9 @@ public:
 
     char getDisplay() const;
 
+    friend Boid& operator<<(Boid &out, const Protobuf::Boid &protobufBoid);
+    friend Protobuf::Boid& operator>>(const Boid &out, Protobuf::Boid &protobufBoid);
+
 };
 
 
