@@ -22,13 +22,12 @@ void HttpServer::handle_post(http_request message) {
 //    std::cout << message.body().extract() << std::endl;
 
     message.extract_vector().then([=](std::vector<unsigned char> c) {
-        std::cout << c.size() << std::endl;
 
         std::string s(c.begin(), c.end());
         Protobuf::Input input;
 
         input.ParseFromString(s);
-        std::cout <<  input.map().dimensions().x() << std::endl;
+//        std::cout <<  input.map().dimensions().x() << std::endl;
 
         Flock flock;
         flock << input.flock();
@@ -37,18 +36,18 @@ void HttpServer::handle_post(http_request message) {
 
         map << input.map();
 
-        map.display();
+//        map.display();
 
         // 600 frames generated
         int refreshRate = 60;
-        int secondsOfSimulation = 10;
+        int secondsOfSimulation = 60;
         float timePerFrame = 1.0f / refreshRate;
 
         float elapsedSec = 0;
         Protobuf::Output output;
         for (int i = 0; i < refreshRate * secondsOfSimulation; ++i) {
             elapsedSec += timePerFrame;
-            flock.update(elapsedSec, map);
+            flock.update(timePerFrame, map);
 
             Protobuf::Simulation *simulation = output.add_simulations();
             auto *protoFlock = new Protobuf::Flock();
@@ -58,7 +57,18 @@ void HttpServer::handle_post(http_request message) {
 
         }
 
-        message.reply(status_codes::OK, output.SerializeAsString(), "application/octet-stream");
+        http_response response (status_codes::OK);
+
+
+
+        std::cout << "byte length " <<  output.ByteSizeLong() << std::endl;
+
+        std::cout << "string length " << output.SerializeAsString().length() << std::endl;
+        response.headers().add(U("Access-Control-Allow-Origin"), U("*"));
+        response.set_body(output.SerializeAsString());
+        response.headers().set_content_type("application/octet-stream");
+        message.reply(response);         // reply is done here
+
 
     });
 }

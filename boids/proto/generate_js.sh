@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-protoc --cpp_out=.. *.proto
+protoc --js_out=import_style=commonjs,binary:. *.proto

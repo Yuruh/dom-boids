@@ -13,7 +13,7 @@ Pos2D Boid::getPosition() const {
 Boid::Boid(): direction(Pos2D(std::rand() % 2 - 1, std::rand() % 2 - 1)), position(std::rand() % WIDTH, std::rand() % HEIGHT)
 {
     this->direction.normalize();
-    this->speed = 2;
+    this->speed = 100;
 
     this->display = 'a' + std::rand() % 26;
 }
@@ -63,4 +63,8 @@ Protobuf::Boid &operator>>(const Boid &in, Protobuf::Boid &protobufBoid) {
     protobufBoid.set_allocated_direction(direction);
     protobufBoid.set_allocated_position(position);
     return protobufBoid;
+}
+
+float Boid::getSpeed() const {
+    return speed;
 }

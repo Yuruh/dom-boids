@@ -52,8 +52,8 @@ void Flock::update(float elapsedTimeSec, const Map &map) {
         boid.setDirection(boid.getDirection() + cohesion + separation + alignment);
 
 
-        float nextPosX = (boid.getPosition().x + boid.getDirection().x * elapsedTimeSec);
-        float nextPosY = (boid.getPosition().y + boid.getDirection().y * elapsedTimeSec);
+        float nextPosX = (boid.getPosition().x + boid.getDirection().x * elapsedTimeSec * boid.getSpeed());
+        float nextPosY = (boid.getPosition().y + boid.getDirection().y * elapsedTimeSec * boid.getSpeed());
 
         /*
          * To do : handle obstacles, turn around, and no multiple boids on same case
@@ -78,7 +78,7 @@ void Flock::update(float elapsedTimeSec, const Map &map) {
 Pos2D Flock::avoidVector(const Boid &boid) {
     Pos2D ret;
 
-    int distanceMin = 5;
+    int distanceMin = 100;
 
     for (const Boid &boid_it : this->boids) {
         if (boid != boid_it && boid_it.getPosition().distanceWith(boid.getPosition()) < distanceMin) {
