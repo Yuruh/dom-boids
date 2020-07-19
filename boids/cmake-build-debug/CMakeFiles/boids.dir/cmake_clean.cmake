@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
   "CMakeFiles/boids.dir/main.cpp.o"
-  "CMakeFiles/boids.dir/Map.cpp.o"
-  "CMakeFiles/boids.dir/Pos2D.cpp.o"
-  "CMakeFiles/boids.dir/Core.cpp.o"
-  "CMakeFiles/boids.dir/Boid.cpp.o"
-  "CMakeFiles/boids.dir/Flock.cpp.o"
+  "CMakeFiles/boids.dir/map.pb.cc.o"
+  "CMakeFiles/boids.dir/src/Map.cpp.o"
+  "CMakeFiles/boids.dir/src/Pos2D.cpp.o"
+  "CMakeFiles/boids.dir/src/Core.cpp.o"
+  "CMakeFiles/boids.dir/src/Boid.cpp.o"
+  "CMakeFiles/boids.dir/src/Flock.cpp.o"
+  "CMakeFiles/boids.dir/src/HttpServer.cpp.o"
   "boids.pdb"
   "boids"
 )

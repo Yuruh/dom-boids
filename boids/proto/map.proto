@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package Protobuf;
+
 message Map {
   Pos2D dimensions = 1;
 }

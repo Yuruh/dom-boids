@@ -7,6 +7,7 @@
 
 
 #include <iostream>
+#include "../map.pb.h"
 
 struct Pos2D {
     Pos2D();
@@ -27,6 +28,7 @@ struct Pos2D {
 };
 
 std::ostream& operator<<(std::ostream& os, const Pos2D& pos);
+Pos2D& operator<<(Pos2D& out, const Protobuf::Pos2D& pos);
 
 
 #endif //BOIDS_POS2D_H

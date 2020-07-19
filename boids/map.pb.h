@@ -54,21 +54,24 @@ struct TableStruct_map_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_map_2eproto;
+namespace Protobuf {
 class Map;
 class MapDefaultTypeInternal;
 extern MapDefaultTypeInternal _Map_default_instance_;
 class Pos2D;
 class Pos2DDefaultTypeInternal;
 extern Pos2DDefaultTypeInternal _Pos2D_default_instance_;
+}  // namespace Protobuf
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Map* Arena::CreateMaybeMessage<::Map>(Arena*);
-template<> ::Pos2D* Arena::CreateMaybeMessage<::Pos2D>(Arena*);
+template<> ::Protobuf::Map* Arena::CreateMaybeMessage<::Protobuf::Map>(Arena*);
+template<> ::Protobuf::Pos2D* Arena::CreateMaybeMessage<::Protobuf::Pos2D>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace Protobuf {
 
 // ===================================================================
 
 class Map PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Map) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protobuf.Map) */ {
  public:
   inline Map() : Map(nullptr) {};
   virtual ~Map();
@@ -157,7 +160,7 @@ class Map PROTOBUF_FINAL :
   void InternalSwap(Map* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Map";
+    return "Protobuf.Map";
   }
   protected:
   explicit Map(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -182,39 +185,39 @@ class Map PROTOBUF_FINAL :
   enum : int {
     kDimensionsFieldNumber = 1,
   };
-  // .Pos2D dimensions = 1;
+  // .Protobuf.Pos2D dimensions = 1;
   bool has_dimensions() const;
   private:
   bool _internal_has_dimensions() const;
   public:
   void clear_dimensions();
-  const ::Pos2D& dimensions() const;
-  ::Pos2D* release_dimensions();
-  ::Pos2D* mutable_dimensions();
-  void set_allocated_dimensions(::Pos2D* dimensions);
+  const ::Protobuf::Pos2D& dimensions() const;
+  ::Protobuf::Pos2D* release_dimensions();
+  ::Protobuf::Pos2D* mutable_dimensions();
+  void set_allocated_dimensions(::Protobuf::Pos2D* dimensions);
   private:
-  const ::Pos2D& _internal_dimensions() const;
-  ::Pos2D* _internal_mutable_dimensions();
+  const ::Protobuf::Pos2D& _internal_dimensions() const;
+  ::Protobuf::Pos2D* _internal_mutable_dimensions();
   public:
   void unsafe_arena_set_allocated_dimensions(
-      ::Pos2D* dimensions);
-  ::Pos2D* unsafe_arena_release_dimensions();
+      ::Protobuf::Pos2D* dimensions);
+  ::Protobuf::Pos2D* unsafe_arena_release_dimensions();
 
-  // @@protoc_insertion_point(class_scope:Map)
+  // @@protoc_insertion_point(class_scope:Protobuf.Map)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::Pos2D* dimensions_;
+  ::Protobuf::Pos2D* dimensions_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_map_2eproto;
 };
 // -------------------------------------------------------------------
 
 class Pos2D PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Pos2D) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protobuf.Pos2D) */ {
  public:
   inline Pos2D() : Pos2D(nullptr) {};
   virtual ~Pos2D();
@@ -303,7 +306,7 @@ class Pos2D PROTOBUF_FINAL :
   void InternalSwap(Pos2D* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Pos2D";
+    return "Protobuf.Pos2D";
   }
   protected:
   explicit Pos2D(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -347,7 +350,7 @@ class Pos2D PROTOBUF_FINAL :
   void _internal_set_y(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Pos2D)
+  // @@protoc_insertion_point(class_scope:Protobuf.Pos2D)
  private:
   class _Internal;
 
@@ -370,7 +373,7 @@ class Pos2D PROTOBUF_FINAL :
 #endif  // __GNUC__
 // Map
 
-// .Pos2D dimensions = 1;
+// .Protobuf.Pos2D dimensions = 1;
 inline bool Map::_internal_has_dimensions() const {
   return this != internal_default_instance() && dimensions_ != nullptr;
 }
@@ -383,17 +386,17 @@ inline void Map::clear_dimensions() {
   }
   dimensions_ = nullptr;
 }
-inline const ::Pos2D& Map::_internal_dimensions() const {
-  const ::Pos2D* p = dimensions_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::Pos2D*>(
-      &::_Pos2D_default_instance_);
+inline const ::Protobuf::Pos2D& Map::_internal_dimensions() const {
+  const ::Protobuf::Pos2D* p = dimensions_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::Protobuf::Pos2D*>(
+      &::Protobuf::_Pos2D_default_instance_);
 }
-inline const ::Pos2D& Map::dimensions() const {
-  // @@protoc_insertion_point(field_get:Map.dimensions)
+inline const ::Protobuf::Pos2D& Map::dimensions() const {
+  // @@protoc_insertion_point(field_get:Protobuf.Map.dimensions)
   return _internal_dimensions();
 }
 inline void Map::unsafe_arena_set_allocated_dimensions(
-    ::Pos2D* dimensions) {
+    ::Protobuf::Pos2D* dimensions) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(dimensions_);
   }
@@ -403,35 +406,35 @@ inline void Map::unsafe_arena_set_allocated_dimensions(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Map.dimensions)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protobuf.Map.dimensions)
 }
-inline ::Pos2D* Map::release_dimensions() {
+inline ::Protobuf::Pos2D* Map::release_dimensions() {
   auto temp = unsafe_arena_release_dimensions();
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::Pos2D* Map::unsafe_arena_release_dimensions() {
-  // @@protoc_insertion_point(field_release:Map.dimensions)
+inline ::Protobuf::Pos2D* Map::unsafe_arena_release_dimensions() {
+  // @@protoc_insertion_point(field_release:Protobuf.Map.dimensions)
   
-  ::Pos2D* temp = dimensions_;
+  ::Protobuf::Pos2D* temp = dimensions_;
   dimensions_ = nullptr;
   return temp;
 }
-inline ::Pos2D* Map::_internal_mutable_dimensions() {
+inline ::Protobuf::Pos2D* Map::_internal_mutable_dimensions() {
   
   if (dimensions_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Pos2D>(GetArena());
+    auto* p = CreateMaybeMessage<::Protobuf::Pos2D>(GetArena());
     dimensions_ = p;
   }
   return dimensions_;
 }
-inline ::Pos2D* Map::mutable_dimensions() {
-  // @@protoc_insertion_point(field_mutable:Map.dimensions)
+inline ::Protobuf::Pos2D* Map::mutable_dimensions() {
+  // @@protoc_insertion_point(field_mutable:Protobuf.Map.dimensions)
   return _internal_mutable_dimensions();
 }
-inline void Map::set_allocated_dimensions(::Pos2D* dimensions) {
+inline void Map::set_allocated_dimensions(::Protobuf::Pos2D* dimensions) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete dimensions_;
@@ -448,7 +451,7 @@ inline void Map::set_allocated_dimensions(::Pos2D* dimensions) {
     
   }
   dimensions_ = dimensions;
-  // @@protoc_insertion_point(field_set_allocated:Map.dimensions)
+  // @@protoc_insertion_point(field_set_allocated:Protobuf.Map.dimensions)
 }
 
 // -------------------------------------------------------------------
@@ -463,7 +466,7 @@ inline float Pos2D::_internal_x() const {
   return x_;
 }
 inline float Pos2D::x() const {
-  // @@protoc_insertion_point(field_get:Pos2D.x)
+  // @@protoc_insertion_point(field_get:Protobuf.Pos2D.x)
   return _internal_x();
 }
 inline void Pos2D::_internal_set_x(float value) {
@@ -472,7 +475,7 @@ inline void Pos2D::_internal_set_x(float value) {
 }
 inline void Pos2D::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:Pos2D.x)
+  // @@protoc_insertion_point(field_set:Protobuf.Pos2D.x)
 }
 
 // float y = 2;
@@ -483,7 +486,7 @@ inline float Pos2D::_internal_y() const {
   return y_;
 }
 inline float Pos2D::y() const {
-  // @@protoc_insertion_point(field_get:Pos2D.y)
+  // @@protoc_insertion_point(field_get:Protobuf.Pos2D.y)
   return _internal_y();
 }
 inline void Pos2D::_internal_set_y(float value) {
@@ -492,7 +495,7 @@ inline void Pos2D::_internal_set_y(float value) {
 }
 inline void Pos2D::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:Pos2D.y)
+  // @@protoc_insertion_point(field_set:Protobuf.Pos2D.y)
 }
 
 #ifdef __GNUC__
@@ -503,6 +506,7 @@ inline void Pos2D::set_y(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace Protobuf
 
 // @@protoc_insertion_point(global_scope)
 

@@ -123,141 +123,6 @@ boids/fast:
 	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/build
 .PHONY : boids/fast
 
-Boid.o: Boid.cpp.o
-
-.PHONY : Boid.o
-
-# target to build an object file
-Boid.cpp.o:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.o
-.PHONY : Boid.cpp.o
-
-Boid.i: Boid.cpp.i
-
-.PHONY : Boid.i
-
-# target to preprocess a source file
-Boid.cpp.i:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.i
-.PHONY : Boid.cpp.i
-
-Boid.s: Boid.cpp.s
-
-.PHONY : Boid.s
-
-# target to generate assembly for a file
-Boid.cpp.s:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Boid.cpp.s
-.PHONY : Boid.cpp.s
-
-Core.o: Core.cpp.o
-
-.PHONY : Core.o
-
-# target to build an object file
-Core.cpp.o:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.o
-.PHONY : Core.cpp.o
-
-Core.i: Core.cpp.i
-
-.PHONY : Core.i
-
-# target to preprocess a source file
-Core.cpp.i:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.i
-.PHONY : Core.cpp.i
-
-Core.s: Core.cpp.s
-
-.PHONY : Core.s
-
-# target to generate assembly for a file
-Core.cpp.s:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Core.cpp.s
-.PHONY : Core.cpp.s
-
-Flock.o: Flock.cpp.o
-
-.PHONY : Flock.o
-
-# target to build an object file
-Flock.cpp.o:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.o
-.PHONY : Flock.cpp.o
-
-Flock.i: Flock.cpp.i
-
-.PHONY : Flock.i
-
-# target to preprocess a source file
-Flock.cpp.i:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.i
-.PHONY : Flock.cpp.i
-
-Flock.s: Flock.cpp.s
-
-.PHONY : Flock.s
-
-# target to generate assembly for a file
-Flock.cpp.s:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Flock.cpp.s
-.PHONY : Flock.cpp.s
-
-Map.o: Map.cpp.o
-
-.PHONY : Map.o
-
-# target to build an object file
-Map.cpp.o:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Map.cpp.o
-.PHONY : Map.cpp.o
-
-Map.i: Map.cpp.i
-
-.PHONY : Map.i
-
-# target to preprocess a source file
-Map.cpp.i:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Map.cpp.i
-.PHONY : Map.cpp.i
-
-Map.s: Map.cpp.s
-
-.PHONY : Map.s
-
-# target to generate assembly for a file
-Map.cpp.s:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Map.cpp.s
-.PHONY : Map.cpp.s
-
-Pos2D.o: Pos2D.cpp.o
-
-.PHONY : Pos2D.o
-
-# target to build an object file
-Pos2D.cpp.o:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Pos2D.cpp.o
-.PHONY : Pos2D.cpp.o
-
-Pos2D.i: Pos2D.cpp.i
-
-.PHONY : Pos2D.i
-
-# target to preprocess a source file
-Pos2D.cpp.i:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Pos2D.cpp.i
-.PHONY : Pos2D.cpp.i
-
-Pos2D.s: Pos2D.cpp.s
-
-.PHONY : Pos2D.s
-
-# target to generate assembly for a file
-Pos2D.cpp.s:
-	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Pos2D.cpp.s
-.PHONY : Pos2D.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -285,6 +150,195 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+map.pb.o: map.pb.cc.o
+
+.PHONY : map.pb.o
+
+# target to build an object file
+map.pb.cc.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/map.pb.cc.o
+.PHONY : map.pb.cc.o
+
+map.pb.i: map.pb.cc.i
+
+.PHONY : map.pb.i
+
+# target to preprocess a source file
+map.pb.cc.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/map.pb.cc.i
+.PHONY : map.pb.cc.i
+
+map.pb.s: map.pb.cc.s
+
+.PHONY : map.pb.s
+
+# target to generate assembly for a file
+map.pb.cc.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/map.pb.cc.s
+.PHONY : map.pb.cc.s
+
+src/Boid.o: src/Boid.cpp.o
+
+.PHONY : src/Boid.o
+
+# target to build an object file
+src/Boid.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Boid.cpp.o
+.PHONY : src/Boid.cpp.o
+
+src/Boid.i: src/Boid.cpp.i
+
+.PHONY : src/Boid.i
+
+# target to preprocess a source file
+src/Boid.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Boid.cpp.i
+.PHONY : src/Boid.cpp.i
+
+src/Boid.s: src/Boid.cpp.s
+
+.PHONY : src/Boid.s
+
+# target to generate assembly for a file
+src/Boid.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Boid.cpp.s
+.PHONY : src/Boid.cpp.s
+
+src/Core.o: src/Core.cpp.o
+
+.PHONY : src/Core.o
+
+# target to build an object file
+src/Core.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Core.cpp.o
+.PHONY : src/Core.cpp.o
+
+src/Core.i: src/Core.cpp.i
+
+.PHONY : src/Core.i
+
+# target to preprocess a source file
+src/Core.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Core.cpp.i
+.PHONY : src/Core.cpp.i
+
+src/Core.s: src/Core.cpp.s
+
+.PHONY : src/Core.s
+
+# target to generate assembly for a file
+src/Core.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Core.cpp.s
+.PHONY : src/Core.cpp.s
+
+src/Flock.o: src/Flock.cpp.o
+
+.PHONY : src/Flock.o
+
+# target to build an object file
+src/Flock.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Flock.cpp.o
+.PHONY : src/Flock.cpp.o
+
+src/Flock.i: src/Flock.cpp.i
+
+.PHONY : src/Flock.i
+
+# target to preprocess a source file
+src/Flock.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Flock.cpp.i
+.PHONY : src/Flock.cpp.i
+
+src/Flock.s: src/Flock.cpp.s
+
+.PHONY : src/Flock.s
+
+# target to generate assembly for a file
+src/Flock.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Flock.cpp.s
+.PHONY : src/Flock.cpp.s
+
+src/HttpServer.o: src/HttpServer.cpp.o
+
+.PHONY : src/HttpServer.o
+
+# target to build an object file
+src/HttpServer.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/HttpServer.cpp.o
+.PHONY : src/HttpServer.cpp.o
+
+src/HttpServer.i: src/HttpServer.cpp.i
+
+.PHONY : src/HttpServer.i
+
+# target to preprocess a source file
+src/HttpServer.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/HttpServer.cpp.i
+.PHONY : src/HttpServer.cpp.i
+
+src/HttpServer.s: src/HttpServer.cpp.s
+
+.PHONY : src/HttpServer.s
+
+# target to generate assembly for a file
+src/HttpServer.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/HttpServer.cpp.s
+.PHONY : src/HttpServer.cpp.s
+
+src/Map.o: src/Map.cpp.o
+
+.PHONY : src/Map.o
+
+# target to build an object file
+src/Map.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Map.cpp.o
+.PHONY : src/Map.cpp.o
+
+src/Map.i: src/Map.cpp.i
+
+.PHONY : src/Map.i
+
+# target to preprocess a source file
+src/Map.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Map.cpp.i
+.PHONY : src/Map.cpp.i
+
+src/Map.s: src/Map.cpp.s
+
+.PHONY : src/Map.s
+
+# target to generate assembly for a file
+src/Map.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Map.cpp.s
+.PHONY : src/Map.cpp.s
+
+src/Pos2D.o: src/Pos2D.cpp.o
+
+.PHONY : src/Pos2D.o
+
+# target to build an object file
+src/Pos2D.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Pos2D.cpp.o
+.PHONY : src/Pos2D.cpp.o
+
+src/Pos2D.i: src/Pos2D.cpp.i
+
+.PHONY : src/Pos2D.i
+
+# target to preprocess a source file
+src/Pos2D.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Pos2D.cpp.i
+.PHONY : src/Pos2D.cpp.i
+
+src/Pos2D.s: src/Pos2D.cpp.s
+
+.PHONY : src/Pos2D.s
+
+# target to generate assembly for a file
+src/Pos2D.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/src/Pos2D.cpp.s
+.PHONY : src/Pos2D.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -294,24 +348,30 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... boids"
 	@echo "... edit_cache"
-	@echo "... Boid.o"
-	@echo "... Boid.i"
-	@echo "... Boid.s"
-	@echo "... Core.o"
-	@echo "... Core.i"
-	@echo "... Core.s"
-	@echo "... Flock.o"
-	@echo "... Flock.i"
-	@echo "... Flock.s"
-	@echo "... Map.o"
-	@echo "... Map.i"
-	@echo "... Map.s"
-	@echo "... Pos2D.o"
-	@echo "... Pos2D.i"
-	@echo "... Pos2D.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... map.pb.o"
+	@echo "... map.pb.i"
+	@echo "... map.pb.s"
+	@echo "... src/Boid.o"
+	@echo "... src/Boid.i"
+	@echo "... src/Boid.s"
+	@echo "... src/Core.o"
+	@echo "... src/Core.i"
+	@echo "... src/Core.s"
+	@echo "... src/Flock.o"
+	@echo "... src/Flock.i"
+	@echo "... src/Flock.s"
+	@echo "... src/HttpServer.o"
+	@echo "... src/HttpServer.i"
+	@echo "... src/HttpServer.s"
+	@echo "... src/Map.o"
+	@echo "... src/Map.i"
+	@echo "... src/Map.s"
+	@echo "... src/Pos2D.o"
+	@echo "... src/Pos2D.i"
+	@echo "... src/Pos2D.s"
 .PHONY : help
 
 

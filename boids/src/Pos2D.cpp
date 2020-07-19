@@ -55,5 +55,13 @@ float Pos2D::distanceWith(const Pos2D &other) const {
 
 std::ostream& operator<<(std::ostream &os, const Pos2D &pos) {
     os << pos.x << " " << pos.y;
+
     return os;
+}
+
+Pos2D &operator<<(Pos2D &out, const Protobuf::Pos2D &pos) {
+    out.x = pos.x();
+    out.y = pos.y();
+
+    return out;
 }

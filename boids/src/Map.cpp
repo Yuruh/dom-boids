@@ -91,3 +91,12 @@ int Map::getBoidIndex(int x, int y) const {
     }
     return -1;
 }
+
+Map &operator<<(Map &out, const Protobuf::Map &protobufMap) {
+    out.dimensions << protobufMap.dimensions();
+    return out;
+}
+
+Pos2D Map::getDimensions() const {
+    return this->dimensions;
+}

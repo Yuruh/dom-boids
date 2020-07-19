@@ -15,6 +15,7 @@
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_map_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Pos2D_map_2eproto;
+namespace Protobuf {
 class MapDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Map> _instance;
@@ -23,15 +24,16 @@ class Pos2DDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Pos2D> _instance;
 } _Pos2D_default_instance_;
+}  // namespace Protobuf
 static void InitDefaultsscc_info_Map_map_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_Map_default_instance_;
-    new (ptr) ::Map();
+    void* ptr = &::Protobuf::_Map_default_instance_;
+    new (ptr) ::Protobuf::Map();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::Map::InitAsDefaultInstance();
+  ::Protobuf::Map::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Map_map_2eproto =
@@ -42,11 +44,11 @@ static void InitDefaultsscc_info_Pos2D_map_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_Pos2D_default_instance_;
-    new (ptr) ::Pos2D();
+    void* ptr = &::Protobuf::_Pos2D_default_instance_;
+    new (ptr) ::Protobuf::Pos2D();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::Pos2D::InitAsDefaultInstance();
+  ::Protobuf::Pos2D::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Pos2D_map_2eproto =
@@ -58,33 +60,33 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_map_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Map, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protobuf::Map, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Map, dimensions_),
+  PROTOBUF_FIELD_OFFSET(::Protobuf::Map, dimensions_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Pos2D, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protobuf::Pos2D, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Pos2D, x_),
-  PROTOBUF_FIELD_OFFSET(::Pos2D, y_),
+  PROTOBUF_FIELD_OFFSET(::Protobuf::Pos2D, x_),
+  PROTOBUF_FIELD_OFFSET(::Protobuf::Pos2D, y_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::Map)},
-  { 6, -1, sizeof(::Pos2D)},
+  { 0, -1, sizeof(::Protobuf::Map)},
+  { 6, -1, sizeof(::Protobuf::Pos2D)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Map_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Pos2D_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protobuf::_Map_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Protobuf::_Pos2D_default_instance_),
 };
 
 const char descriptor_table_protodef_map_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\tmap.proto\"!\n\003Map\022\032\n\ndimensions\030\001 \001(\0132\006"
-  ".Pos2D\"\035\n\005Pos2D\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002b\006p"
-  "roto3"
+  "\n\tmap.proto\022\010Protobuf\"*\n\003Map\022#\n\ndimensio"
+  "ns\030\001 \001(\0132\017.Protobuf.Pos2D\"\035\n\005Pos2D\022\t\n\001x\030"
+  "\001 \001(\002\022\t\n\001y\030\002 \001(\002b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_map_2eproto_deps[1] = {
 };
@@ -94,7 +96,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_map
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_map_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_map_2eproto = {
-  false, false, descriptor_table_protodef_map_2eproto, "map.proto", 85,
+  false, false, descriptor_table_protodef_map_2eproto, "map.proto", 104,
   &descriptor_table_map_2eproto_once, descriptor_table_map_2eproto_sccs, descriptor_table_map_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_map_2eproto::offsets,
   file_level_metadata_map_2eproto, 2, file_level_enum_descriptors_map_2eproto, file_level_service_descriptors_map_2eproto,
@@ -102,19 +104,20 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_map_2e
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_map_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_map_2eproto)), true);
+namespace Protobuf {
 
 // ===================================================================
 
 void Map::InitAsDefaultInstance() {
-  ::_Map_default_instance_._instance.get_mutable()->dimensions_ = const_cast< ::Pos2D*>(
-      ::Pos2D::internal_default_instance());
+  ::Protobuf::_Map_default_instance_._instance.get_mutable()->dimensions_ = const_cast< ::Protobuf::Pos2D*>(
+      ::Protobuf::Pos2D::internal_default_instance());
 }
 class Map::_Internal {
  public:
-  static const ::Pos2D& dimensions(const Map* msg);
+  static const ::Protobuf::Pos2D& dimensions(const Map* msg);
 };
 
-const ::Pos2D&
+const ::Protobuf::Pos2D&
 Map::_Internal::dimensions(const Map* msg) {
   return *msg->dimensions_;
 }
@@ -122,17 +125,17 @@ Map::Map(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Map)
+  // @@protoc_insertion_point(arena_constructor:Protobuf.Map)
 }
 Map::Map(const Map& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_dimensions()) {
-    dimensions_ = new ::Pos2D(*from.dimensions_);
+    dimensions_ = new ::Protobuf::Pos2D(*from.dimensions_);
   } else {
     dimensions_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:Map)
+  // @@protoc_insertion_point(copy_constructor:Protobuf.Map)
 }
 
 void Map::SharedCtor() {
@@ -141,7 +144,7 @@ void Map::SharedCtor() {
 }
 
 Map::~Map() {
-  // @@protoc_insertion_point(destructor:Map)
+  // @@protoc_insertion_point(destructor:Protobuf.Map)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -167,7 +170,7 @@ const Map& Map::default_instance() {
 
 
 void Map::Clear() {
-// @@protoc_insertion_point(message_clear_start:Map)
+// @@protoc_insertion_point(message_clear_start:Protobuf.Map)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -187,7 +190,7 @@ const char* Map::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::intern
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .Pos2D dimensions = 1;
+      // .Protobuf.Pos2D dimensions = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_dimensions(), ptr);
@@ -218,11 +221,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Map::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Map)
+  // @@protoc_insertion_point(serialize_to_array_start:Protobuf.Map)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Pos2D dimensions = 1;
+  // .Protobuf.Pos2D dimensions = 1;
   if (this->has_dimensions()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -234,19 +237,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Map)
+  // @@protoc_insertion_point(serialize_to_array_end:Protobuf.Map)
   return target;
 }
 
 size_t Map::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Map)
+// @@protoc_insertion_point(message_byte_size_start:Protobuf.Map)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Pos2D dimensions = 1;
+  // .Protobuf.Pos2D dimensions = 1;
   if (this->has_dimensions()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -263,41 +266,41 @@ size_t Map::ByteSizeLong() const {
 }
 
 void Map::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Map)
+// @@protoc_insertion_point(generalized_merge_from_start:Protobuf.Map)
   GOOGLE_DCHECK_NE(&from, this);
   const Map* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Map>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Map)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Protobuf.Map)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Map)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Protobuf.Map)
     MergeFrom(*source);
   }
 }
 
 void Map::MergeFrom(const Map& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Map)
+// @@protoc_insertion_point(class_specific_merge_from_start:Protobuf.Map)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.has_dimensions()) {
-    _internal_mutable_dimensions()->::Pos2D::MergeFrom(from._internal_dimensions());
+    _internal_mutable_dimensions()->::Protobuf::Pos2D::MergeFrom(from._internal_dimensions());
   }
 }
 
 void Map::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Map)
+// @@protoc_insertion_point(generalized_copy_from_start:Protobuf.Map)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Map::CopyFrom(const Map& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Map)
+// @@protoc_insertion_point(class_specific_copy_from_start:Protobuf.Map)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -330,7 +333,7 @@ Pos2D::Pos2D(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Pos2D)
+  // @@protoc_insertion_point(arena_constructor:Protobuf.Pos2D)
 }
 Pos2D::Pos2D(const Pos2D& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -338,7 +341,7 @@ Pos2D::Pos2D(const Pos2D& from)
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&y_) -
     reinterpret_cast<char*>(&x_)) + sizeof(y_));
-  // @@protoc_insertion_point(copy_constructor:Pos2D)
+  // @@protoc_insertion_point(copy_constructor:Protobuf.Pos2D)
 }
 
 void Pos2D::SharedCtor() {
@@ -348,7 +351,7 @@ void Pos2D::SharedCtor() {
 }
 
 Pos2D::~Pos2D() {
-  // @@protoc_insertion_point(destructor:Pos2D)
+  // @@protoc_insertion_point(destructor:Protobuf.Pos2D)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -373,7 +376,7 @@ const Pos2D& Pos2D::default_instance() {
 
 
 void Pos2D::Clear() {
-// @@protoc_insertion_point(message_clear_start:Pos2D)
+// @@protoc_insertion_point(message_clear_start:Protobuf.Pos2D)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -430,7 +433,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Pos2D::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Pos2D)
+  // @@protoc_insertion_point(serialize_to_array_start:Protobuf.Pos2D)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -450,12 +453,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Pos2D)
+  // @@protoc_insertion_point(serialize_to_array_end:Protobuf.Pos2D)
   return target;
 }
 
 size_t Pos2D::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Pos2D)
+// @@protoc_insertion_point(message_byte_size_start:Protobuf.Pos2D)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -482,22 +485,22 @@ size_t Pos2D::ByteSizeLong() const {
 }
 
 void Pos2D::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Pos2D)
+// @@protoc_insertion_point(generalized_merge_from_start:Protobuf.Pos2D)
   GOOGLE_DCHECK_NE(&from, this);
   const Pos2D* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Pos2D>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Pos2D)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Protobuf.Pos2D)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Pos2D)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Protobuf.Pos2D)
     MergeFrom(*source);
   }
 }
 
 void Pos2D::MergeFrom(const Pos2D& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Pos2D)
+// @@protoc_insertion_point(class_specific_merge_from_start:Protobuf.Pos2D)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -512,14 +515,14 @@ void Pos2D::MergeFrom(const Pos2D& from) {
 }
 
 void Pos2D::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Pos2D)
+// @@protoc_insertion_point(generalized_copy_from_start:Protobuf.Pos2D)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Pos2D::CopyFrom(const Pos2D& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Pos2D)
+// @@protoc_insertion_point(class_specific_copy_from_start:Protobuf.Pos2D)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -546,12 +549,13 @@ void Pos2D::InternalSwap(Pos2D* other) {
 
 
 // @@protoc_insertion_point(namespace_scope)
+}  // namespace Protobuf
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Map* Arena::CreateMaybeMessage< ::Map >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Map >(arena);
+template<> PROTOBUF_NOINLINE ::Protobuf::Map* Arena::CreateMaybeMessage< ::Protobuf::Map >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protobuf::Map >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Pos2D* Arena::CreateMaybeMessage< ::Pos2D >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Pos2D >(arena);
+template<> PROTOBUF_NOINLINE ::Protobuf::Pos2D* Arena::CreateMaybeMessage< ::Protobuf::Pos2D >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protobuf::Pos2D >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

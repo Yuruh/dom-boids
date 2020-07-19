@@ -34,6 +34,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/antoine/Code/dom-boids/boids/cmake-build-debug"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -57,6 +58,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/antoine/Code/dom-boids/boids/cmake-build-debug"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -84,40 +86,52 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Boid.cpp">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Boid.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Boid.h">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Core.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Core.cpp">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Flock.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Core.h">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/HttpServer.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Flock.cpp">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Maccros.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Flock.h">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Map.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Maccros.h">
-			<Option target="boids"/>
-		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Map.cpp">
-			<Option target="boids"/>
-		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Map.h">
-			<Option target="boids"/>
-		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Pos2D.cpp">
-			<Option target="boids"/>
-		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/Pos2D.h">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Pos2D.h">
 			<Option target="boids"/>
 		</Unit>
 		<Unit filename="/home/antoine/Code/dom-boids/boids/main.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/map.pb.cc">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/map.pb.h">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/Boid.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/Core.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/Flock.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/HttpServer.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/Map.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/src/Pos2D.cpp">
 			<Option target="boids"/>
 		</Unit>
 		<Unit filename="/home/antoine/Code/dom-boids/boids/CMakeLists.txt">

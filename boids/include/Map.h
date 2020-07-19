@@ -8,6 +8,7 @@
 #include <vector>
 #include "Pos2D.h"
 #include "Flock.h"
+#include "../map.pb.h"
 
 /*
  * Comme input on va avoir:
@@ -33,13 +34,9 @@ public:
      */
     void display() const;
 
-    /*
-     * Print and rewrites the map to stdout, n times
-     * if n == 0, doesn't stop
-     * include refresh rate
-     * Should not be in map
-     */
-    void displayInteractive(int n) const;
+
+    Pos2D getDimensions() const;
+    friend Map& operator<<(Map &out, const Protobuf::Map &protobufMap);
 };
 
 
