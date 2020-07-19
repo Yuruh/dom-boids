@@ -15,6 +15,7 @@ HttpServer::HttpServer(std::string url): m_listener(url) {
 
 HttpServer::~HttpServer() = default;
 
+// Todo handle errors and sanitize inputs
 void HttpServer::handle_post(http_request message) {
 
 //    std::cout << message.body().extract() << std::endl;
@@ -24,10 +25,10 @@ void HttpServer::handle_post(http_request message) {
         std::cout << c.size() << std::endl;
 
         std::string s(c.begin(), c.end());
-        Protobuf::Map map;
+        Protobuf::Input input;
 
-        map.ParseFromString(s);
-        std::cout << map.dimensions().x() << std::endl;
+        input.ParseFromString(s);
+        std::cout <<  input.map().dimensions().x() << std::endl;
         message.reply(status_codes::OK, "yess");
     });
 

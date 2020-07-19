@@ -31,6 +31,57 @@ void on_shutdown()
     std::cout << "Http handler closed" << std::endl;
 }
 
+void writeTestMap() {
+    auto *posBoid1 = new Protobuf::Pos2D();
+    posBoid1->set_x(5);
+    posBoid1->set_y(5);
+
+    auto *dirBoid1 = new Protobuf::Pos2D();
+    dirBoid1->set_x(1);
+    dirBoid1->set_y(0);
+
+    auto *flock = new Protobuf::Flock();
+
+    Protobuf::Boid *boid1 = flock->add_boids();
+    boid1->set_allocated_position(posBoid1);
+    boid1->set_allocated_direction(dirBoid1);
+
+    auto *posBoid2 = new Protobuf::Pos2D();
+    posBoid2->set_x(6);
+    posBoid2->set_y(2);
+
+    auto *dirBoid2 = new Protobuf::Pos2D();
+    dirBoid2->set_x(2);
+    dirBoid2->set_y(1);
+
+
+    Protobuf::Boid *boid2 = flock->add_boids();
+    boid2->set_allocated_position(posBoid2);
+    boid2->set_allocated_direction(dirBoid2);
+
+
+    Protobuf::Input input;
+
+    input.set_allocated_flock(flock);
+
+
+    auto *proto_map = new Protobuf::Map();
+
+    auto *dimensions = new Protobuf::Pos2D;
+    dimensions->set_x(10);
+    dimensions->set_y(10);
+
+    proto_map->set_allocated_dimensions(dimensions);
+
+    input.set_allocated_map(proto_map);
+
+    fstream output("input_test.protobinary", ios::out | ios::trunc | ios::binary);
+    if (!input.SerializeToOstream(&output)) {
+        cerr << "Failed to write map." << endl;
+        return;
+    }
+}
+
 
 int main() {
 
@@ -48,42 +99,7 @@ int main() {
 
     on_shutdown();
 
-
-    Protobuf::Map proto_map;
-    auto *dimensions = new Protobuf::Pos2D;
-    dimensions->set_x(10);
-    dimensions->set_y(5);
-
-    proto_map.set_allocated_dimensions(dimensions);
-
-
-    std::string serialized = proto_map.SerializeAsString();
-    Protobuf::Map parsedMap;
-    parsedMap.ParseFromString(serialized);
-
-    std::cout << parsedMap.dimensions().x() << std::endl;
-
-    Flock flock;
-    int nbOfBoids = 10;
-    for (int i = 0; i < nbOfBoids; ++i) {
-        Boid boid;
-        flock.addBoid(boid);
-    }
-    Map map(flock, Pos2D());
-    map << parsedMap;
-
-
-    std::cout << map.getDimensions() << std::endl;
-
-/*    fstream output("map_test.protobinary", ios::out | ios::trunc | ios::binary);
-    if (!parsedMap.SerializeToOstream(&output)) {
-        cerr << "Failed to write map." << endl;
-        return -1;
-    }*/
-
-
-//    map.SerializeAsString();
-//    map.ParseFromString();
+//    writeTestMap();
 
     google::protobuf::ShutdownProtobufLibrary();
 
@@ -112,6 +128,7 @@ int main() {
 
     return 0;*/
 }
+
 
 
 
