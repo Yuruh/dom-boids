@@ -18,7 +18,7 @@ Boid.h
 Map.h
 /home/antoine/Code/dom-boids/boids/include/Map.h
 
-/home/antoine/Code/dom-boids/boids/include/Maccros.h
+/home/antoine/Code/dom-boids/boids/include/Macros.h
 
 /home/antoine/Code/dom-boids/boids/include/Map.h
 vector
@@ -77,6 +77,6 @@ iostream
 -
 ../include/Flock.h
 /home/antoine/Code/dom-boids/boids/include/Flock.h
-../include/Maccros.h
-/home/antoine/Code/dom-boids/boids/include/Maccros.h
+../include/Macros.h
+/home/antoine/Code/dom-boids/boids/include/Macros.h
 

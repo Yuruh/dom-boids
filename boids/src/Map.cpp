@@ -5,7 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include "../include/Map.h"
-#include "../include/Maccros.h"
+#include "../include/Macros.h"
 
 /*
  * Default constructor generates a random map

@@ -1,5 +1,6 @@
-var protobuf = require("protobufjs");
+const protobuf = require("protobufjs");
 const axios = require('axios');
+const randomColor = require('randomcolor'); // import the script
 
 class Boid {
     position = {
@@ -12,6 +13,8 @@ class Boid {
     }
 }
 
+const colors = [];
+
 protobuf.load("map.proto", async function(err, root) {
     if (err)
         throw err;
@@ -22,6 +25,7 @@ protobuf.load("map.proto", async function(err, root) {
     const boids = []
     for (let i = 0; i < 50; i++) {
         boids.push(new Boid());
+        colors.push(randomColor())
     }
 
     const payload = {
@@ -69,6 +73,7 @@ function animateBoids(result) {
     for (const simulation of result.simulations) {
         setTimeout(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let i = 0;
             for (const boid of simulation.flock.boids) {
                 ctx.beginPath();
                 ctx.moveTo(boid.position.x, boid.position.y);
@@ -80,7 +85,7 @@ function animateBoids(result) {
               //  ctx.lineTo(boid.position.x + boid.direction.x * triangleSize, boid.position.y + boid.direction.y * triangleSize)
                 //ctx.lineTo(boid.position.x - boid.direction.x * triangleSize, boid.position.y - boid.direction.y * triangleSize)
                // ctx.arc(boid.position.x, boid.position.y, 10, 0, Math.PI*2, false);
-                ctx.fillStyle = "#0095DD"
+                ctx.fillStyle = colors[i++]
                 ctx.fill();
                 ctx.closePath();
             }

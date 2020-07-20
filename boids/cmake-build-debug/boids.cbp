@@ -98,7 +98,7 @@
 		<Unit filename="/home/antoine/Code/dom-boids/boids/include/HttpServer.h">
 			<Option target="boids"/>
 		</Unit>
-		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Maccros.h">
+		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Macros.h">
 			<Option target="boids"/>
 		</Unit>
 		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Map.h">

@@ -4,9 +4,12 @@
 
 #include <iostream>
 #include "../include/Flock.h"
-#include "../include/Maccros.h"
+#include "../include/Macros.h"
 
 Pos2D Flock::centreOfMass() const {
+    if (this->boids.empty()) {
+        return Pos2D();
+    }
     Pos2D accumulator(0, 0);
 
 
@@ -25,7 +28,7 @@ Pos2D Flock::centreOfDirection() const {
         accumulator += boid.getDirection();
     }
 
-    accumulator.normalize();
+//    accumulator.normalize();
 
     return accumulator;
 }
@@ -40,28 +43,25 @@ const std::vector<Boid> Flock::getBoids() const {
 
 // TODO take map as input or smth
 void Flock::update(float elapsedTimeSec, const Map &map) {
-    Pos2D center = this->centreOfMass();
 
     float reactiveness = 0.1;
 
     for (Boid &boid : this->boids) {
+        Pos2D dir = boid.getDirection();
+        dir.normalize();
+        boid.setDirection(dir);
 
         // steer to move towards the average position (center of mass) of local flockmates
-        Pos2D cohesion = (center - boid.getPosition());
-        cohesion.normalize();
-        cohesion = cohesion * reactiveness;
-
+        Pos2D cohesion = boid.getCohesion(boids) * 0.01;
 
         // steer to avoid crowding local flockmates
-        Pos2D separation = this->avoidVector(boid);
-        separation = separation * reactiveness * 2;
+        Pos2D separation = boid.getSeparation(boids) * 10;
 
         // steer towards the average heading of local flockmates
-        Pos2D alignment = this->centreOfDirection();
-        alignment = alignment * reactiveness;
+        Pos2D alignment = boid.getAlignment(boids) * 0.17;
 
-        Pos2D nextDirection = cohesion + separation + alignment;
-        nextDirection.normalize();
+//        Pos2D nextDirection = cohesion + separation + alignment;
+  //      nextDirection.normalize();
 
 //        nextDirection = nextDirection * reactiveness;
 
@@ -109,20 +109,27 @@ void Flock::update(float elapsedTimeSec, const Map &map) {
 
 Pos2D Flock::avoidVector(const Boid &boid) {
     Pos2D ret;
+    int count = 0;
 
-    int distanceMin = 100;
+    int distanceMin = SEPARATION_DISTANCE;
 
     for (const Boid &boid_it : this->boids) {
-/*        if (boid != boid_it) {
-            std::cout << boid_it.getPosition().distanceWith(boid.getPosition()) << std::endl;
-        }*/
-        if (boid != boid_it && boid_it.getPosition().distanceWith(boid.getPosition()) < distanceMin) {
-            ret = ret - (boid_it.getPosition() - boid.getPosition());
-            //std::cout << ret << std::endl;
+        float distance = boid_it.getPosition().distanceWith(boid.getPosition());
+        if ((distance > EPSILON) && (distance < distanceMin)) {
+            Pos2D oppositeWay = ret - (boid_it.getPosition() - boid.getPosition());
 
+            oppositeWay.normalize();
+            oppositeWay = oppositeWay / distance; // The closer the other boid is, the more we want to steer
+            ret += oppositeWay;
+
+            count++;
         }
+
     }
     ret.normalize();
+    if (count > 0) {
+        ret = ret / count;
+    }
     return ret;
 }
 

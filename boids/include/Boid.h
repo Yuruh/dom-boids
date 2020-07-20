@@ -13,6 +13,8 @@
 class Boid {
 private:
     Pos2D position;
+
+    // acts as direction and velocity
     Pos2D direction;
 
     char display;
@@ -20,9 +22,15 @@ private:
     // In units per second
     float speed;
 public:
+
     Boid();
     Pos2D getPosition() const;
     Pos2D getDirection() const;
+
+    Pos2D getCohesion(const std::vector<Boid> &boids) const;
+    Pos2D getAlignment(const std::vector<Boid> &boids) const;
+    Pos2D getSeparation(const std::vector<Boid> &boids) const;
+
     bool operator==(const Boid &boid) const;
     bool operator!=(const Boid &boid) const;
 

@@ -4,7 +4,7 @@
 
 #include <cstdlib>
 #include "../include/Boid.h"
-#include "../include/Maccros.h"
+#include "../include/Macros.h"
 
 Pos2D Boid::getPosition() const {
     return this->position;
@@ -12,7 +12,6 @@ Pos2D Boid::getPosition() const {
 
 Boid::Boid(): direction(Pos2D(std::rand() % 2 - 1, std::rand() % 2 - 1)), position(std::rand() % WIDTH, std::rand() % HEIGHT)
 {
-    this->direction.normalize();
     this->speed = 100;
 
     this->display = 'a' + std::rand() % 26;
@@ -40,7 +39,7 @@ Pos2D Boid::getDirection() const {
 
 void Boid::setDirection(const Pos2D &dir) {
     this->direction = dir;
-    this->direction.normalize();
+//    this->direction.normalize();
 }
 
 bool Boid::operator!=(const Boid &boid) const {
@@ -67,4 +66,62 @@ Protobuf::Boid &operator>>(const Boid &in, Protobuf::Boid &protobufBoid) {
 
 float Boid::getSpeed() const {
     return speed;
+}
+
+Pos2D Boid::getCohesion(const std::vector<Boid> &boids) const {
+    Pos2D res;
+    int count = 0;
+    for (const Boid &boid : boids) {
+        float distance = boid.getPosition().distanceWith(this->getPosition());
+
+        if ((distance > EPSILON) && (distance < VISION_DISTANCE)) {
+            res = res + boid.position;
+            count++;
+        }
+    }
+    if (count > 0) {
+        res = res / count;
+        return res - position;
+    }
+    return Pos2D();
+}
+
+Pos2D Boid::getAlignment(const std::vector<Boid> &boids) const {
+    Pos2D res;
+    int count = 0;
+    for (const Boid &boid : boids) {
+        float distance = boid.getPosition().distanceWith(this->getPosition());
+
+        if ((distance > EPSILON) && (distance < VISION_DISTANCE)) {
+            res = res + boid.direction;
+            count++;
+        }
+    }
+    if (count > 0) {
+        res = res / count;
+    }
+    return res;
+}
+
+Pos2D Boid::getSeparation(const std::vector<Boid> &boids) const {
+    Pos2D ret;
+    int count = 0;
+    for (const Boid &boid : boids) {
+        float distance = boid.getPosition().distanceWith(this->getPosition());
+
+        if ((distance > EPSILON) && (distance < SEPARATION_DISTANCE)) {
+            Pos2D oppositeWay = ret - (boid.getPosition() - this->getPosition());
+
+            oppositeWay.normalize();
+            oppositeWay = oppositeWay / distance; // The closer the other boid is, the more we want to steer
+            ret += oppositeWay;
+
+            count++;
+
+        }
+    }
+    if (count > 0) {
+        ret = ret / count;
+    }
+    return ret;
 }

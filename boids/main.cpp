@@ -5,7 +5,7 @@
 #include <zconf.h>
 #include <google/protobuf/stubs/common.h>
 #include "include/Map.h"
-#include "include/Maccros.h"
+#include "include/Macros.h"
 #include "include/HttpServer.h"
 #include "map.pb.h"
 
