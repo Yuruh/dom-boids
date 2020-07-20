@@ -41,10 +41,6 @@ protobuf.load("map.proto", async function(err, root) {
     const msg = Input.create(payload);
     const buffer = Input.encode(msg).finish()
 
-  //  const decoded = Input.decode(buffer);
-
-//    const result = Input.toObject(decoded);
-
     try {
         const res = await axios.post("http://localhost:8080", buffer, {
             responseType: 'arraybuffer',
@@ -67,7 +63,8 @@ function animateBoids(result) {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const triangleSize = 100;
+    const triangleSize = 60;
+    const triangleWidthRad = 0.2
 
     for (const simulation of result.simulations) {
         setTimeout(() => {
@@ -75,9 +72,14 @@ function animateBoids(result) {
             for (const boid of simulation.flock.boids) {
                 ctx.beginPath();
                 ctx.moveTo(boid.position.x, boid.position.y);
+                const angleRad = Math.atan2(boid.direction.y * -1, boid.direction.x * -1);
+                ctx.lineTo(boid.position.x + triangleSize * Math.cos(angleRad + triangleWidthRad),
+                    boid.position.y + triangleSize * Math.sin(angleRad + triangleWidthRad))
+                ctx.lineTo(boid.position.x + triangleSize * Math.cos(angleRad - triangleWidthRad),
+                    boid.position.y + triangleSize * Math.sin(angleRad - triangleWidthRad))
               //  ctx.lineTo(boid.position.x + boid.direction.x * triangleSize, boid.position.y + boid.direction.y * triangleSize)
                 //ctx.lineTo(boid.position.x - boid.direction.x * triangleSize, boid.position.y - boid.direction.y * triangleSize)
-                ctx.arc(boid.position.x, boid.position.y, 10, 0, Math.PI*2, false);
+               // ctx.arc(boid.position.x, boid.position.y, 10, 0, Math.PI*2, false);
                 ctx.fillStyle = "#0095DD"
                 ctx.fill();
                 ctx.closePath();

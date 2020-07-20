@@ -21,6 +21,7 @@ struct Pos2D {
     Pos2D operator-(const Pos2D& pos) const;
     Pos2D& operator+=(const Pos2D& pos);
     Pos2D operator/(float n) const;
+    Pos2D operator*(float n) const;
 
     void normalize();
     float getMagnitude() const;

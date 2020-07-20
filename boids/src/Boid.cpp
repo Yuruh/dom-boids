@@ -26,8 +26,8 @@ char Boid::getDisplay() const {
  * We consider two boids equal if they have the same location (they should never overlap)
  */
 bool Boid::operator==(const Boid &boid) const {
-    return static_cast<int>(position.x) == static_cast<int>(this->position.x) &&
-            static_cast<int>(position.y) == static_cast<int>(this->position.y);
+    return static_cast<int>(boid.position.x) == static_cast<int>(this->position.x) &&
+            static_cast<int>(boid.position.y) == static_cast<int>(this->position.y);
 }
 
 void Boid::setPosition(Pos2D pos) {

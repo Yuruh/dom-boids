@@ -52,6 +52,11 @@ float Pos2D::distanceWith(const Pos2D &other) const {
     return std::sqrt((other.x - this->x) * (other.x - this->x) + (other.y - this->y) * (other.y - this->y));
 }
 
+Pos2D Pos2D::operator*(float n) const {
+    return Pos2D(this->x * n, this->y * n);
+
+}
+
 
 std::ostream& operator<<(std::ostream &os, const Pos2D &pos) {
     os << pos.x << " " << pos.y;
