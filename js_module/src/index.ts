@@ -23,7 +23,7 @@ protobuf.load("map.proto", async function(err, root) {
     const Output = root.lookupType("Protobuf.Output")
 
     const boids = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 200; i++) {
         boids.push(new Boid());
         colors.push(randomColor())
     }
@@ -62,7 +62,7 @@ protobuf.load("map.proto", async function(err, root) {
 
 // gotta type it
 function animateBoids(result) {
-    const canvas = document.getElementById("canvas");
+    const canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d");
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;

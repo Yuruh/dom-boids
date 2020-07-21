@@ -3,6 +3,7 @@ node_modules/
 dist
 cmake-build-debug/
 
+bundle.js
 
 
 # C++
