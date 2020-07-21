@@ -8,7 +8,14 @@
 
 #include "Pos2D.h"
 
+// resources:
+
 // http://www.kfish.org/boids/pseudocode.html
+// https://processing.org/examples/flocking.html
+
+// serve.proto over http, or use different method like json https://www.npmjs.com/package/protobufjs#examples
+
+// To handle walls, use reflection: plus je vais droit vers le mur, plus la force me pousse vers le coté opposé
 
 class Boid {
 private:
@@ -17,10 +24,17 @@ private:
     // acts as direction and velocity
     Pos2D direction;
 
+    Pos2D acceleration;
+
+    float maxSpeed;
+    float maxForce;
+
     char display;
 
     // In units per second
     float speed;
+
+
 public:
 
     Boid();
@@ -35,7 +49,10 @@ public:
     bool operator!=(const Boid &boid) const;
 
     void setDirection(const Pos2D &dir);
+    void addAcceleration(const Pos2D &acc);
     void setPosition(Pos2D pos);
+
+    void update(float elapsedTimeSec);
 
     char getDisplay() const;
 

@@ -6,6 +6,7 @@
 #include "../include/Boid.h"
 #include "../include/Macros.h"
 
+
 Pos2D Boid::getPosition() const {
     return this->position;
 }
@@ -13,6 +14,8 @@ Pos2D Boid::getPosition() const {
 Boid::Boid(): direction(Pos2D(std::rand() % 2 - 1, std::rand() % 2 - 1)), position(std::rand() % WIDTH, std::rand() % HEIGHT)
 {
     this->speed = 100;
+    this->maxForce = 0.5;
+    this->maxSpeed = 3.5;
 
     this->display = 'a' + std::rand() % 26;
 }
@@ -81,7 +84,18 @@ Pos2D Boid::getCohesion(const std::vector<Boid> &boids) const {
     }
     if (count > 0) {
         res = res / count;
-        return res - position;
+
+        // Vector from location to target
+        Pos2D goal = res - position;
+
+        // Scale to max speed
+        goal.normalize();
+        goal = goal * maxSpeed;
+
+        Pos2D steer(goal.x, goal.y);
+        steer = goal - direction;
+        steer.limitToMaxMagnitude(maxForce); // Limit to max steering force
+        return steer;
     }
     return Pos2D();
 }
@@ -99,6 +113,15 @@ Pos2D Boid::getAlignment(const std::vector<Boid> &boids) const {
     }
     if (count > 0) {
         res = res / count;
+
+        // Scale to max speed
+        res.normalize();
+        res = res * maxSpeed;
+
+        Pos2D steer(res.x, res.y);
+        steer = res - direction;
+        steer.limitToMaxMagnitude(maxForce); // Limit to max steering force
+        return steer;
     }
     return res;
 }
@@ -122,6 +145,27 @@ Pos2D Boid::getSeparation(const std::vector<Boid> &boids) const {
     }
     if (count > 0) {
         ret = ret / count;
+
+        // Scale to max speed
+        ret.normalize();
+        ret = ret * maxSpeed;
+
+        Pos2D steer(ret.x, ret.y);
+        steer = ret - direction;
+        steer.limitToMaxMagnitude(maxForce); // Limit to max steering force
     }
     return ret;
+}
+
+void Boid::update(float elapsedTimeSec) {
+    //acceleration = acceleration * 0.4;
+
+    direction = direction + acceleration;
+    direction.limitToMaxMagnitude(maxSpeed);
+    position = position + direction * elapsedTimeSec * 100;
+    acceleration = acceleration * 0;
+}
+
+void Boid::addAcceleration(const Pos2D &acc) {
+    acceleration = acceleration + acc;
 }

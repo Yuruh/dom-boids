@@ -52,28 +52,31 @@ void Flock::update(float elapsedTimeSec, const Map &map) {
         boid.setDirection(dir);
 
         // steer to move towards the average position (center of mass) of local flockmates
-        Pos2D cohesion = boid.getCohesion(boids) * 0.01;
+        Pos2D cohesion = boid.getCohesion(boids) * 0.1;
+
+        boid.addAcceleration(cohesion);
 
         // steer to avoid crowding local flockmates
-        Pos2D separation = boid.getSeparation(boids) * 10;
+        Pos2D separation = boid.getSeparation(boids) * 0.1;
+        boid.addAcceleration(separation);
 
         // steer towards the average heading of local flockmates
-        Pos2D alignment = boid.getAlignment(boids) * 0.17;
+        Pos2D alignment = boid.getAlignment(boids) * 0.1;
+        boid.addAcceleration(alignment);
 
 //        Pos2D nextDirection = cohesion + separation + alignment;
   //      nextDirection.normalize();
 
 //        nextDirection = nextDirection * reactiveness;
 
-        boid.setDirection(boid.getDirection() + cohesion + separation + alignment);
+//        boid.setDirection(boid.getDirection() + cohesion + separation + alignment);
 
-
+        boid.update(elapsedTimeSec);
+/*
         float nextPosX = (boid.getPosition().x + boid.getDirection().x * elapsedTimeSec * boid.getSpeed());
         float nextPosY = (boid.getPosition().y + boid.getDirection().y * elapsedTimeSec * boid.getSpeed());
 
-        /*
          * To do : handle obstacles, turn around, and no multiple boids on same case
-         */
         if (nextPosX < 0) {
             nextPosX += map.getDimensions().x;
         }
@@ -103,7 +106,7 @@ void Flock::update(float elapsedTimeSec, const Map &map) {
             std::cout << "Cannot go there, there's already a boid" << std::endl;
         } else {
             boid.setPosition(Pos2D(nextPosX, nextPosY));
-        }
+        }*/
     }
 }
 

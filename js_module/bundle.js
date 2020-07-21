@@ -25,7 +25,7 @@ protobuf.load("map.proto", async function(err, root) {
     const Output = root.lookupType("Protobuf.Output")
 
     const boids = []
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
         boids.push(new Boid());
         colors.push(randomColor())
     }

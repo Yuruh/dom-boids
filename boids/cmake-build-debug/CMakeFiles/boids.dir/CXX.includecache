@@ -72,6 +72,14 @@ google/protobuf/port_def.inc
 google/protobuf/port_undef.inc
 -
 
+/home/antoine/Code/dom-boids/boids/src/Boid.cpp
+cstdlib
+-
+../include/Boid.h
+/home/antoine/Code/dom-boids/boids/include/Boid.h
+../include/Macros.h
+/home/antoine/Code/dom-boids/boids/include/Macros.h
+
 /home/antoine/Code/dom-boids/boids/src/Flock.cpp
 iostream
 -

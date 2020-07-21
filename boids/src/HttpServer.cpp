@@ -60,10 +60,6 @@ void HttpServer::handle_post(http_request message) {
         http_response response (status_codes::OK);
 
 
-
-        std::cout << "byte length " <<  output.ByteSizeLong() << std::endl;
-
-        std::cout << "string length " << output.SerializeAsString().length() << std::endl;
         response.headers().add(U("Access-Control-Allow-Origin"), U("*"));
         response.set_body(output.SerializeAsString());
         response.headers().set_content_type("application/octet-stream");

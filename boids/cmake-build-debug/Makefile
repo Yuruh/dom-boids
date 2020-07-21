@@ -123,6 +123,33 @@ boids/fast:
 	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/build
 .PHONY : boids/fast
 
+Line.o: Line.cpp.o
+
+.PHONY : Line.o
+
+# target to build an object file
+Line.cpp.o:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Line.cpp.o
+.PHONY : Line.cpp.o
+
+Line.i: Line.cpp.i
+
+.PHONY : Line.i
+
+# target to preprocess a source file
+Line.cpp.i:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Line.cpp.i
+.PHONY : Line.cpp.i
+
+Line.s: Line.cpp.s
+
+.PHONY : Line.s
+
+# target to generate assembly for a file
+Line.cpp.s:
+	$(MAKE) -f CMakeFiles/boids.dir/build.make CMakeFiles/boids.dir/Line.cpp.s
+.PHONY : Line.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -348,6 +375,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... boids"
 	@echo "... edit_cache"
+	@echo "... Line.o"
+	@echo "... Line.i"
+	@echo "... Line.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

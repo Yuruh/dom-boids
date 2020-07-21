@@ -26,6 +26,8 @@ struct Pos2D {
     void normalize();
     float getMagnitude() const;
     float distanceWith(const Pos2D& other) const;
+
+    void limitToMaxMagnitude(float max);
 };
 
 std::ostream& operator<<(std::ostream& os, const Pos2D& pos);

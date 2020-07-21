@@ -31,7 +31,6 @@ Pos2D& Pos2D::operator+=(const Pos2D &pos) {
 
 Pos2D Pos2D::operator-(const Pos2D &pos) const {
     return Pos2D(this->x - pos.x, this->y - pos.y);
-
 }
 
 void Pos2D::normalize() {
@@ -55,6 +54,17 @@ float Pos2D::distanceWith(const Pos2D &other) const {
 Pos2D Pos2D::operator*(float n) const {
     return Pos2D(this->x * n, this->y * n);
 
+}
+
+
+//Normalize vector if deemed too strong
+//Todo is it ok ?
+void Pos2D::limitToMaxMagnitude(float max) {
+    double size = getMagnitude();
+
+    if (size > max) {
+        this->normalize();
+    }
 }
 
 

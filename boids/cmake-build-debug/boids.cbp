@@ -86,6 +86,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Line.cpp">
+			<Option target="boids"/>
+		</Unit>
+		<Unit filename="/home/antoine/Code/dom-boids/boids/Line.h">
+			<Option target="boids"/>
+		</Unit>
 		<Unit filename="/home/antoine/Code/dom-boids/boids/include/Boid.h">
 			<Option target="boids"/>
 		</Unit>
