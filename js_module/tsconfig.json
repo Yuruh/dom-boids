@@ -6,7 +6,8 @@
     "allowJs": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*"

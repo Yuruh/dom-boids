@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "html2canvas": "^1.0.0-rc.5"
   },
   "devDependencies": {
     "protobufjs": "^6.10.1",
