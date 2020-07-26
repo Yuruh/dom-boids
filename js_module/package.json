@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
     "html2canvas": "^1.0.0-rc.5"
   },
   "devDependencies": {

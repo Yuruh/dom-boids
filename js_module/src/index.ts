@@ -1,9 +1,8 @@
-import {Root, Type} from "protobufjs";
+import {Root, roots, Type} from "protobufjs";
 import Boid from "./Boid";
 import {boundingClientToObstacles, buildCanvas, imageDataToObstacles} from "./domParsing";
 
 const protobuf = require("protobufjs");
-const axios = require('axios');
 const randomColor = require('randomcolor'); // import the script
 const colors = [];
 
@@ -11,8 +10,12 @@ let globalRoot: Root | undefined;
 let Input: Type;
 let Output: Type;
 
+const numberOfBoids = 10;
+const FPS = 24;
+const simLengthSec = 5;
+
 const boids = [];
-for (let i = 0; i < 300; i++) {
+for (let i = 0; i < numberOfBoids; i++) {
     boids.push(new Boid());
     colors.push(randomColor())
 }
@@ -51,8 +54,8 @@ window.onload = function() {
             },
             obstacles
         },
-        imagesPerSecond: 30,
-        simulationDurationSec: 20,
+        imagesPerSecond: FPS,
+        simulationDurationSec: simLengthSec,
         flock: {
             boids
         }
@@ -62,15 +65,17 @@ window.onload = function() {
 
 function start(payload: IInput) {
     protobuf.load("map.proto", async function (err, root) {
+        console.log("Loaded Protobuf");
         globalRoot = root;
         Input = globalRoot.lookupType("Protobuf.Input")
         Output = globalRoot.lookupType("Protobuf.Output")
 
+
+        console.log("Starting first simulation")
         getNextSimulations(payload, {
             flock: payload.flock,
             elapsedTimeSecond: 0,
         }).then((result: IOutput) => {
-            console.log("initial");
             setTimeout(() => {
                 animateBoids(payload, result)
             }, 0);
@@ -78,45 +83,31 @@ function start(payload: IInput) {
     });
 }
 
+//const listINputBuffer: Uint8Array[] = [];
+
 async function getNextSimulations(initialInput: IInput, lastSimulation: ISimulation): Promise<IOutput> {
-    //TODO load protobuf differently
-//    console.log("last simulation", lastSimulation);
+    initialInput.flock = lastSimulation.flock
+
+    const msg = Input.create(initialInput);
+
+    let inputBuffer: Uint8Array = Input.encode(msg).finish()
+
+    return new Promise((resolve, reject) => {
+        fetch('http://localhost:8080', {
+            method: 'post',
+            body: inputBuffer
+        }).then(function(response) {
+            return response.arrayBuffer();
+        }).then(function(data) {
 
 
-//    initialInput.flock = lastSimulation.flock
+            const receivedBuffer = new Uint8Array(data);
 
-    const test: IInput = JSON.parse(JSON.stringify(initialInput));
+            const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
 
-    test.flock = JSON.parse(JSON.stringify(lastSimulation.flock));
-
-    const msg = Input.create(test);
-    console.log("input", msg);
-    const inputBuffer: Uint8Array = Input.encode(msg).finish()
-
-
-    // A DELETE
-/*    try {
-        await axios.post(`http://localhost:8080?timestamp=${new Date().getTime()}`, JSON.stringify(test));
-    } catch (e) {
-        console.log(e)
-    }*/
-    ///    --------------------------
-
-
-
-    try {
-        const response = await axios.post(`http://localhost:8080?timestamp=${new Date().getTime()}`, inputBuffer, {
-            responseType: 'arraybuffer',
-        });
-        const receivedBuffer = Buffer.from(response.data, "base64");
-
-        const data = Output.decode(receivedBuffer);
-
-        return Output.toObject(data) as any;
-    } catch (e) {
-        console.log(e)
-        throw e;
-    }
+            resolve(ret);
+        }).catch(reject);
+    })
 
 }
 
