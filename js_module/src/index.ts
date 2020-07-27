@@ -10,9 +10,9 @@ let globalRoot: Root | undefined;
 let Input: Type;
 let Output: Type;
 
-const numberOfBoids = 10;
-const FPS = 24;
-const simLengthSec = 5;
+const numberOfBoids = 1000;
+const FPS = 60;
+const simLengthSec = 60;
 
 const boids = [];
 for (let i = 0; i < numberOfBoids; i++) {
@@ -65,7 +65,6 @@ window.onload = function() {
 
 function start(payload: IInput) {
     protobuf.load("map.proto", async function (err, root) {
-        console.log("Loaded Protobuf");
         globalRoot = root;
         Input = globalRoot.lookupType("Protobuf.Input")
         Output = globalRoot.lookupType("Protobuf.Output")
@@ -125,16 +124,27 @@ function animateBoids(input: IInput, result: IOutput) {
 
     const ctx = canvas.getContext("2d");
 
-    const triangleSize = 40;
-    const triangleWidthRad = 0.2
+    const triangleSize = 30;
+    const triangleWidthRad = 0.2;
 
     if (result.simulations.length > 0) {
         const lastSimulation: ISimulation = result.simulations[result.simulations.length - 1];
 
+        // This doesn't take into account how long the getNextSimulations takes to operate
+        const t0 = Date.now();
         getNextSimulations(input, lastSimulation).then((nextResult: IOutput) => {
+            const t1 = Date.now();
+            const elapsedTimeMs = t1 - t0;
+            let triggerNext = lastSimulation.elapsedTimeSecond * 1000 - elapsedTimeMs;
+            if (triggerNext < 0) {
+                console.log("Computation took longer than animation");
+                triggerNext = 0;
+            }
             setTimeout(() => {
                 animateBoids(input, nextResult)
-            }, lastSimulation.elapsedTimeSecond * 1000);
+            }, triggerNext);
+  //          console.log("next simulation time:", lastSimulation.elapsedTimeSecond);
+//            console.log("next simulation content:", nextResult);
         });
     }
 
