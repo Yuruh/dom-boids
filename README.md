@@ -1,23 +1,29 @@
+[![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/github/v/tag/yuruh/dom-boids)](https://github.com/Yuruh/encrypted-diary/releases)
+[![size](https://img.shields.io/docker/image-size/yuruh/dom-boids-demo?color=blueviolet)](https://hub.docker.com/r/yuruh/encrypted-diary)
+
+
 # dom-boids
 
-L'idée ce serait d'avoir de la vie dans la page html en générant un essaim qui se baladerait sur la page
+Flocking simulation that lives in the DOM
 
-https://en.wikipedia.org/wiki/Boids
+Uses https://github.com/yuruh/boids-service for the simulation.
 
-Le plus compliqué va être de parser le DOM. Au lieu de partir du dom, partir d'un screenshot et se baser sur les couleurs ?
+## Demo
 
+Available here: https://boids-demo.yuruh.fr
 
+Demo in VanillaJS.
 
-Possible de générer un screenshot à partir dun DOM ? Moteur headless comme pour les tests ?
+## Features
 
-https://github.com/tsayen/dom-to-image  , à utiliser ou pour voir comment parser le dom
+* Implementation of Boids-service protocol
+* Convert HTML elements to obstacles
+* Interactive simulation parameters
+* Animation in canvas over DOM
 
-En js `window.innerWidth` et `window.innerHeight` dimensions en pixel
+## Next Steps
 
-Sous-diviser la zone explorable en quadtree
-
-document.documentElement.innerHTML;
-
-UDP ?  Non, les browsers ne supportent pas pour des raisons de sécuriter, donc TCP / websockets, avec socket io probablement
-
-API Gateway en go qui communique vers CPP en RPC ? (pour train go + cpp ?) Pas initialement je pense, peut être si l'IA se complexifie
+* Automatically pick DOM elements to avoid
+* Deploy as NPM package
+* Deploy as Browser Extension
