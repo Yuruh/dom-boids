@@ -3,3 +3,5 @@
     width: 100px;
     position: absolute;
 }
+
+#canvas { pointer-events:none; }

@@ -6,9 +6,15 @@
     <script src="bundle.js"></script>
     <link href="style.css" rel="stylesheet">
 </head>
-<body style="background-color: black">
+<body style="background-color: black;color: white;cursor:pointer;">
 <canvas style="position: absolute;top: 0;left: 0" id="canvas"></canvas>
-
+<p>Work In Progress</p>
+<label for="input-nb-boids" style="color: white">Number of Boids</label>
+<input type="range" min="1" max="400" value="100" class="avoid" id="input-nb-boids"/>
+<label for="fps" style="color: white">Number of FPS</label>
+<input type="range" min="10" max="60" value="24" class="avoid" id="fps"/>
+<h1 id="instructions" style="color:white;">Click on simulation start point</h1>
+<div style="width: 1920px;height: 1080px"></div>
 <img src="media/bird.jpg" class="avoid photo" alt="lol" style="top: 200px;left:300px"/>
 <img src="media/bird.jpg" class="avoid photo" alt="lol" style="top: 500px;left:400px"/>
 <img src="media/bird.jpg" class="avoid photo" alt="lol" style="top: 700px;left:900px"/>

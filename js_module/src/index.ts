@@ -1,40 +1,31 @@
-import {Root, roots, Type} from "protobufjs";
+import {Root, Type} from "protobufjs";
 import Boid from "./Boid";
-import {boundingClientToObstacles, buildCanvas, imageDataToObstacles} from "./domParsing";
+import {boundingClientToObstacles} from "./domParsing";
 
 const protobuf = require("protobufjs");
 const randomColor = require('randomcolor'); // import the script
 const colors = [];
 
-let globalRoot: Root | undefined;
+let globalRoot: Root | undefined;
 let Input: Type;
 let Output: Type;
 
-const numberOfBoids = 1000;
-const FPS = 60;
-const simLengthSec = 60;
+const simLengthSec = 5;
+let chooseStartPosition: boolean = true;
 
-const boids = [];
-for (let i = 0; i < numberOfBoids; i++) {
-    boids.push(new Boid());
-    colors.push(randomColor())
-}
-let obstacles: ILine[] = []
+let boids = [];
+let obstacles: ILine[] = [];
+let timeoutIds = [];
 
-/*for (let i = 0; i < 2; i++) {
-    obstacles.push({
-        a: {
-            x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-        },
-        b: {
-            x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-        }
-    })
-}*/
-
-window.onload = function() {
+function initMap(boidStartX, boidStartY): IInput {
     const canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
 
+    const sliderBoids: HTMLInputElement = document.getElementById("input-nb-boids") as any;
+    const sliderFps: HTMLInputElement = document.getElementById("fps") as any;
+    for (let i = 0; i < sliderBoids.valueAsNumber; i++) {
+        boids.push(new Boid(boidStartX, boidStartY));
+        colors.push(randomColor())
+    }
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -46,7 +37,7 @@ window.onload = function() {
         obstacles = obstacles.concat(domObstacles);
     }
 
-    const payload: IInput = {
+    return {
         map: {
             dimensions: {
                 x: window.innerWidth,
@@ -54,13 +45,67 @@ window.onload = function() {
             },
             obstacles
         },
-        imagesPerSecond: FPS,
+        imagesPerSecond: sliderFps.valueAsNumber,
         simulationDurationSec: simLengthSec,
         flock: {
             boids
         }
     }
-    start(payload);
+}
+
+function clearAllTimeouts() {
+    for (const i of timeoutIds) {
+        clearTimeout(i);
+    }
+    timeoutIds = [];
+}
+
+function reset() {
+    clearAllTimeouts();
+    boids = [];
+    chooseStartPosition = true;
+
+    document.body.style.cursor = "pointer";
+
+
+    const instructions: HTMLElement = document.getElementById("instructions") as any;
+
+    instructions.style.visibility = "visible"
+}
+
+window.onload = function() {
+    const slider: HTMLInputElement = document.getElementById("input-nb-boids") as any;
+    const sliderFps: HTMLInputElement = document.getElementById("fps") as any;
+
+    window.onclick = function(event: MouseEvent) {
+        if (chooseStartPosition) {
+            document.body.style.cursor = "auto";
+
+            const instructions: HTMLElement = document.getElementById("instructions") as any;
+
+            instructions.style.visibility = "hidden"
+            clearAllTimeouts();
+            boids = [];
+
+            const payload = initMap(event.clientX, event.clientY);
+
+            chooseStartPosition = false;
+            start(payload);
+
+        }
+    }
+
+    slider.onmouseup = sliderFps.onmouseup = function(e) {
+        e.stopImmediatePropagation()
+        reset();
+    }
+    slider.onclick = sliderFps.onclick = function (e) {
+        e.stopImmediatePropagation();
+    }
+
+
+//    const payload = initMap()
+ //   start(payload);
 }
 
 function start(payload: IInput) {
@@ -75,9 +120,9 @@ function start(payload: IInput) {
             flock: payload.flock,
             elapsedTimeSecond: 0,
         }).then((result: IOutput) => {
-            setTimeout(() => {
+            timeoutIds.push(setTimeout(() => {
                 animateBoids(payload, result)
-            }, 0);
+            }, 0))
         });
     });
 }
@@ -92,7 +137,9 @@ async function getNextSimulations(initialInput: IInput, lastSimulation: ISimulat
     let inputBuffer: Uint8Array = Input.encode(msg).finish()
 
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:8080', {
+        fetch('https://boids.yuruh.fr', {
+
+//        fetch('http://localhost:8080', {
             method: 'post',
             body: inputBuffer
         }).then(function(response) {
@@ -140,16 +187,16 @@ function animateBoids(input: IInput, result: IOutput) {
                 console.log("Computation took longer than animation");
                 triggerNext = 0;
             }
-            setTimeout(() => {
+            timeoutIds.push(setTimeout(() => {
                 animateBoids(input, nextResult)
-            }, triggerNext);
+            }, triggerNext));
   //          console.log("next simulation time:", lastSimulation.elapsedTimeSecond);
 //            console.log("next simulation content:", nextResult);
         });
     }
 
     for (const simulation of result.simulations) {
-        setTimeout(() => {
+        timeoutIds.push(setTimeout(() => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle =  "#ffffff"
             for (const obstacle of input.map.obstacles) {
@@ -176,6 +223,6 @@ function animateBoids(input: IInput, result: IOutput) {
                 ctx.closePath();
             }
 
-            }, simulation.elapsedTimeSecond * 1000)
+            }, simulation.elapsedTimeSecond * 1000));
     }
 }

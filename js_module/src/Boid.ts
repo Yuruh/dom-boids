@@ -7,4 +7,9 @@ export default class Boid {
         x: Math.random() * 2 - 1,
         y: Math.random() * 2 - 1
     }
+
+    constructor(posStartX = window.innerWidth / 2, posStartY = window.innerHeight / 2) {
+        this.position.x = posStartX;
+        this.position.y = posStartY;
+    }
 }
