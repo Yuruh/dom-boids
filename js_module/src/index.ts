@@ -13,7 +13,7 @@ let Output: Type;
 const simLengthSec = 5;
 let chooseStartPosition: boolean = true;
 
-let boids = [];
+let boids: Boid[] = [];
 let obstacles: ILine[] = [];
 let timeoutIds = [];
 
@@ -77,6 +77,19 @@ window.onload = function() {
     const slider: HTMLInputElement = document.getElementById("input-nb-boids") as any;
     const sliderFps: HTMLInputElement = document.getElementById("fps") as any;
 
+    function setSliderValue() {
+        const label: HTMLLabelElement = document.getElementById("nb-boids-label") as HTMLLabelElement;
+        label.innerText = slider.value + " boids"
+    }
+
+    function setSliderFPSValue() {
+        const labelFps: HTMLLabelElement = document.getElementById("fps-label") as HTMLLabelElement;
+        labelFps.innerText = sliderFps.value + " FPS"
+    }
+
+    setSliderValue();
+    setSliderFPSValue();
+
     window.onclick = function(event: MouseEvent) {
         if (chooseStartPosition) {
             document.body.style.cursor = "auto";
@@ -93,6 +106,15 @@ window.onload = function() {
             start(payload);
 
         }
+    }
+
+    slider.oninput = function(e) {
+        setSliderValue();
+    }
+
+
+    sliderFps.oninput = function(e) {
+        setSliderFPSValue();
     }
 
     slider.onmouseup = sliderFps.onmouseup = function(e) {
@@ -137,9 +159,9 @@ async function getNextSimulations(initialInput: IInput, lastSimulation: ISimulat
     let inputBuffer: Uint8Array = Input.encode(msg).finish()
 
     return new Promise((resolve, reject) => {
-        fetch('https://boids.yuruh.fr', {
+//        fetch('https://boids.yuruh.fr', {
 
-//        fetch('http://localhost:8080', {
+        fetch('http://localhost:8080', {
             method: 'post',
             body: inputBuffer
         }).then(function(response) {
@@ -170,9 +192,6 @@ function animateBoids(input: IInput, result: IOutput) {
 
 
     const ctx = canvas.getContext("2d");
-
-    const triangleSize = 30;
-    const triangleWidthRad = 0.2;
 
     if (result.simulations.length > 0) {
         const lastSimulation: ISimulation = result.simulations[result.simulations.length - 1];
@@ -208,21 +227,11 @@ function animateBoids(input: IInput, result: IOutput) {
             }
             let i = 0;
             for (const boid of simulation.flock.boids) {
-                ctx.beginPath();
-                ctx.moveTo(boid.position.x, boid.position.y);
-                const angleRad = Math.atan2(boid.direction.y * -1, boid.direction.x * -1);
-                ctx.lineTo(boid.position.x + triangleSize * Math.cos(angleRad + triangleWidthRad),
-                    boid.position.y + triangleSize * Math.sin(angleRad + triangleWidthRad))
-                ctx.lineTo(boid.position.x + triangleSize * Math.cos(angleRad - triangleWidthRad),
-                    boid.position.y + triangleSize * Math.sin(angleRad - triangleWidthRad))
-              //  ctx.lineTo(boid.position.x + boid.direction.x * triangleSize, boid.position.y + boid.direction.y * triangleSize)
-                //ctx.lineTo(boid.position.x - boid.direction.x * triangleSize, boid.position.y - boid.direction.y * triangleSize)
-               // ctx.arc(boid.position.x, boid.position.y, 10, 0, Math.PI*2, false);
-                ctx.fillStyle = colors[i++]
-                ctx.fill();
-                ctx.closePath();
+                boids[i].position = boid.position
+                boids[i].direction = boid.direction;
+                boids[i].draw(ctx, colors[i], simulation.elapsedTimeSecond * 1000);
+                i++;
             }
-
-            }, simulation.elapsedTimeSecond * 1000));
+        }, simulation.elapsedTimeSecond * 1000));
     }
 }
