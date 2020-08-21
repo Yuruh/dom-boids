@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.scss';
 import {SliderSection} from "./SliderSection";
 import Boid from "./simulation/Boid";
 import {boundingClientToObstacles} from "./simulation/domParsing";
 import {IInput, ILine, ISimulation, IOutput} from './simulation/ProtoInterfaces';
 import {Type, Root} from "protobufjs";
+import Simulator from "./simulation/Simulator";
 
 const protobuf = require("protobufjs");
 
@@ -25,17 +26,9 @@ function go() {
 
     canvas.id = "canvas"
 
-    const body = document.body,
-        html = document.documentElement;
-
-    const height = Math.max( body.scrollHeight, body.offsetHeight,
-        html.clientHeight, html.scrollHeight, html.offsetHeight );
-
-    console.log(height)
-
-    canvas.width  = window.innerWidth;
-    canvas.height = height;
-
+    canvas.width  = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    canvas.style.pointerEvents = "none";
 
     document.body.appendChild(canvas)
     for (let i = 0; i < 50; i++) {
@@ -86,8 +79,6 @@ async function getNextSimulations(initialInput: IInput, lastSimulation: ISimulat
         }).then(function(response) {
             return response.arrayBuffer();
         }).then(function(data) {
-
-
             const receivedBuffer = new Uint8Array(data);
 
             const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
@@ -95,7 +86,6 @@ async function getNextSimulations(initialInput: IInput, lastSimulation: ISimulat
             resolve(ret);
         }).catch(reject);
     })
-
 }
 
 function animateBoids(input: IInput, result: IOutput) {
@@ -104,7 +94,6 @@ function animateBoids(input: IInput, result: IOutput) {
     if (!canvas) {
         throw "canvas not found"
     }
-
 
     const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
     if (!ctx) {
@@ -176,40 +165,44 @@ function start(payload: IInput) {
     });
 }
 
+function SimulatorButton() {
+    let simulator = new Simulator();
 
+    useEffect(() => {
+        simulator = new Simulator();
+    })
 
-
-
-
-
-
-
+    return <h4><button onClick={() => {
+        simulator.start();
+    }}>Start the simulation</button></h4>
+}
 
 function App() {
-  return (
-    <div className="App">
-      <h1>DOM BOIDS</h1>
-      <h4>Teeming the web with life</h4>
-      <h6>By <a href={"https://github.com/yuruh"} target={"_blank"} rel="noopener noreferrer">Antoine Lempereur</a></h6>
-      <p>Based on Craig Reynolds BOIDS model, stuff that should be said so ppl understand what's going on</p>
-        <h4><button onClick={go}>Start the simulation</button></h4>
-      <hr/>
-      <h2>Configuring the simulation</h2>
-      <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
-      <div className={"align-right"}>
-        <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
-      </div>
-      <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
-      <div className={"align-right"}>
-        <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
-      </div>
-      <hr/>
-      <h2>About the project</h2>
-      <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in the boids environment</p></div>
-      <div className={"section"}>Technical Specificities</div>
-      <div className={"section"}>Development</div>
-    </div>
-  );
+
+    return (
+        <div className="App">
+            <h1>DOM BOIDS</h1>
+            <h4>Teeming the web with life</h4>
+            <h6>By <a href={"https://github.com/yuruh"} target={"_blank"} rel="noopener noreferrer">Antoine Lempereur</a></h6>
+            <p>Based on Craig Reynolds BOIDS model, stuff that should be said so ppl understand what's going on</p>
+            <SimulatorButton/>
+            <hr/>
+            <h2>Configuring the simulation</h2>
+            <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
+            <div className={"align-right"}>
+                <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
+            </div>
+            <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
+            <div className={"align-right"}>
+                <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
+            </div>
+            <hr/>
+            <h2>About the project</h2>
+            <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in the boids environment</p></div>
+            <div className={"section"}>Technical Specificities</div>
+            <div className={"section"}>Development</div>
+        </div>
+    );
 }
 
 export default App;
