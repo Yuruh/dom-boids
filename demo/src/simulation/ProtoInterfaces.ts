@@ -11,6 +11,7 @@ export interface IOutput {
 
 export interface ISimulation {
     flock: IFlock;
+    obstaclesNormalVectors: IPos2D[];
     elapsedTimeSecond: number;
 }
 
@@ -32,6 +33,11 @@ export interface IPos2D {
 export interface IBoid {
     position: IPos2D;
     direction: IPos2D;
+
+    avoidance?: IPos2D;
+    cohesion?: IPos2D;
+    alignment?: IPos2D;
+    separation?: IPos2D;
 }
 
 export interface IFlock {

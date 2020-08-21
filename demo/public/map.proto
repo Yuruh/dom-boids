@@ -20,6 +20,10 @@ message Pos2D {
 message Boid {
   Pos2D position = 1;
   Pos2D direction = 2;
+  Pos2D cohesion = 3;
+  Pos2D alignment = 4;
+  Pos2D separation = 5;
+  Pos2D avoidance = 6;
 }
 
 message Flock {
@@ -48,6 +52,7 @@ message Input {
 message Simulation {
     Flock flock = 1;
     float elapsedTimeSecond = 2;
+    repeated Pos2D obstaclesNormalVectors = 3;
 }
 
 message Output {

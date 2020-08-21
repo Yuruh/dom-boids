@@ -7,6 +7,8 @@ import Loader from "../Loader";
 import {Modal} from "../Modal";
 const protobuf = require("protobufjs");
 
+const interval = 1 / 60 * 1000; // 60 FPS;
+
 interface IState {
     loading: boolean
 }
@@ -36,8 +38,8 @@ export default class Simulator extends React.Component<{ }, IState>{
 
     constructor(props: any) {
         super(props)
-        for (let i = 0; i < 25; i++) {
-            this.boids.push(new Boid(10,  10));
+        for (let i = 0; i < 1; i++) {
+            this.boids.push(new Boid(100,  100));
         }
 
         this.state = {
@@ -54,14 +56,14 @@ export default class Simulator extends React.Component<{ }, IState>{
     componentDidMount() {
         const elements: HTMLCollectionOf<Element> = document.getElementsByClassName("section");
 
-        for (let i = 0; i < elements.length; i++) {
+/*        for (let i = 0; i < elements.length; i++) {
             const item = elements.item(i)
             if (item !== null) {
                 const domObstacles: ILine[] = boundingClientToObstacles(item.getBoundingClientRect());
 
                 this.obstacles = this.obstacles.concat(domObstacles);
             }
-        }
+        }*/
     }
 
 
@@ -132,6 +134,7 @@ export default class Simulator extends React.Component<{ }, IState>{
     }
 
     private drawSimulation(simulation: ISimulation) {
+//        console.log(simulation)
         this.clearCanvas();
   //      this.ctx.strokeStyle =  "#ffffff"
 /*        for (const obstacle of input.map.obstacles) {
@@ -145,11 +148,14 @@ export default class Simulator extends React.Component<{ }, IState>{
         for (const boid of simulation.flock.boids) {
             this.boids[i].position = boid.position
             this.boids[i].direction = boid.direction;
+            this.boids[i].avoidance = boid.avoidance || {x: 0, y: 0};
+            this.boids[i].separation = boid.separation || {x: 0, y: 0};
+            this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
+            this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
             this.boids[i].draw(this.ctx, "", simulation.elapsedTimeSecond * 1000);
             i++;
         }
     }
-
 
     public start() {
         this.setupCanvas();
@@ -159,12 +165,21 @@ export default class Simulator extends React.Component<{ }, IState>{
         this.getNextSimulations(payload, {
             flock: payload.flock,
             elapsedTimeSecond: 0,
+            obstaclesNormalVectors: []
         }).then((result: IOutput) => {
+
             this.simulations = this.simulations.concat(result.simulations);
             this.baseSimLength = this.simulations.length;
+
         });
 
+
         this.resume();
+    }
+
+    public nextFrame() {
+        this.update(this.baseSimLength);
+        this.currentTimeMs += interval
     }
 
     private buildInput(): IInput {
@@ -196,6 +211,7 @@ export default class Simulator extends React.Component<{ }, IState>{
                     this.fetchingMoreSim = true;
                     this.getNextSimulations(this.buildInput(), {
                         flock: this.simulations[this.simulations.length - 1].flock,
+                        obstaclesNormalVectors: [],
                         elapsedTimeSecond: this.simulations[this.simulations.length - 1].elapsedTimeSecond,
                     }).then((result: IOutput) => {
                         this.simulations = this.simulations.concat(result.simulations);
@@ -210,7 +226,6 @@ export default class Simulator extends React.Component<{ }, IState>{
     }
 
     public resume() {
-        const interval = 1 / 60 * 1000; // 60 FPS;
         this.intervalId = setInterval(() => {
             this.update(this.baseSimLength);
             this.currentTimeMs += interval

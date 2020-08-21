@@ -23,6 +23,9 @@ function SimulatorButton() {
             ref.current.resume();
         }}>Resume</button>
         <button onClick={() => {
+            ref.current.nextFrame();
+        }}>Next Frame</button>
+        <button onClick={() => {
             ref.current.stop();
         }}>Stop</button>
         <Simulator ref={ref}/>
