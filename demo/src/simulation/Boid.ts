@@ -4,6 +4,21 @@ const animUpdateRateMs = 75;
 const imageSize = 50;
 const nbOfImage = 6;
 
+export function drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: number, toX: number, toY: number, color: string) {
+    const headLen = 10; // length of head in pixels
+    const dx = toX - fromX;
+    const dy = toY - fromY;
+    const angle = Math.atan2(dy, dx);
+    ctx.strokeStyle = color;
+    ctx.beginPath();//ADD THIS LINE!<<<<<<<<<<<<<
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(toX, toY);
+    ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+}
+
 export default class Boid {
     position = {
         x: window.innerWidth / 2,//Math.random() * window.innerWidth, // we can also make them start at a specific point
@@ -49,28 +64,6 @@ export default class Boid {
         }
 
         this.animStartAt = Math.floor(Math.random() * nbOfImage);
-
-        /*        const rand = Math.floor(Math.random() * 4) + 1;
-
-                this.images[0].src = "spritesheets/Bird_" + rand + "/frame-1.png"
-                this.images[1].src = "spritesheets/Bird_" + rand + "/frame-2.png"
-                this.images[2].src = "spritesheets/Bird_" + rand + "/frame-3.png"
-                this.images[3].src = "spritesheets/Bird_" + rand + "/frame-4.png"*/
-    }
-
-    private drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: number, toX: number, toY: number, color: string) {
-        const headLen = 10; // length of head in pixels
-        const dx = toX - fromX;
-        const dy = toY - fromY;
-        const angle = Math.atan2(dy, dx);
-        ctx.strokeStyle = color;
-        ctx.beginPath();//ADD THIS LINE!<<<<<<<<<<<<<
-        ctx.moveTo(fromX, fromY);
-        ctx.lineTo(toX, toY);
-        ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
-        ctx.moveTo(toX, toY);
-        ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
-        ctx.stroke();
     }
 
     private drawAvatar(ctx: CanvasRenderingContext2D, elapsedTimeMs: number) {
@@ -108,7 +101,7 @@ export default class Boid {
         if (dir.x === 0 && dir.y === 0) {
             return;
         }
-        this.drawArrow(ctx, pos.x, pos.y,
+        drawArrow(ctx, pos.x, pos.y,
             pos.x + dir.x * 500,
             pos.y + dir.y * 500, color);
     }
@@ -123,9 +116,9 @@ export default class Boid {
         this.drawArrowPosVec(ctx, this.position, this.separation, "#0000FF")
 
 
-/*        this.drawArrow(ctx, this.position.x, this.position.y,
+        drawArrow(ctx, this.position.x, this.position.y,
             this.position.x + this.direction.x * 100,
-            this.position.y + this.direction.y * 100, "#FF00FF");*/
+            this.position.y + this.direction.y * 100, "#00FFFF");
 
     }
 

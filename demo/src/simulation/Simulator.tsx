@@ -1,5 +1,5 @@
 import {IInput, ILine, IOutput, ISimulation} from "./ProtoInterfaces"
-import Boid from "./Boid";
+import Boid, {drawArrow} from "./Boid";
 import {Root, Type} from "protobufjs";
 import {boundingClientToObstacles} from "./domParsing";
 import React from "react";
@@ -38,7 +38,7 @@ export default class Simulator extends React.Component<{ }, IState>{
 
     constructor(props: any) {
         super(props)
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 3; i++) {
             this.boids.push(new Boid(100,  100));
         }
 
@@ -144,6 +144,17 @@ export default class Simulator extends React.Component<{ }, IState>{
             this.ctx.stroke();
             this.ctx.closePath();
         }*/
+        if (simulation.obstaclesNormalVectors && simulation.obstaclesPosition) {
+            for (let j = 0; j < simulation.obstaclesNormalVectors?.length; j++) {
+                simulation.obstaclesPosition[j].x = simulation.obstaclesPosition[j].x || 0;
+                simulation.obstaclesPosition[j].y = simulation.obstaclesPosition[j].y || 0;
+                simulation.obstaclesNormalVectors[j].x = simulation.obstaclesNormalVectors[j].x || 0;
+                simulation.obstaclesNormalVectors[j].y = simulation.obstaclesNormalVectors[j].y || 0;
+                drawArrow(this.ctx, simulation.obstaclesPosition[j].x, simulation.obstaclesPosition[j].y,
+                    simulation.obstaclesPosition[j].x + simulation.obstaclesNormalVectors[j].x * 300,
+                    simulation.obstaclesPosition[j].y + simulation.obstaclesNormalVectors[j].y * 300, "#FFAAFF");
+            }
+        }
         let i = 0;
         for (const boid of simulation.flock.boids) {
             this.boids[i].position = boid.position
@@ -165,7 +176,6 @@ export default class Simulator extends React.Component<{ }, IState>{
         this.getNextSimulations(payload, {
             flock: payload.flock,
             elapsedTimeSecond: 0,
-            obstaclesNormalVectors: []
         }).then((result: IOutput) => {
 
             this.simulations = this.simulations.concat(result.simulations);
@@ -175,6 +185,12 @@ export default class Simulator extends React.Component<{ }, IState>{
 
 
         this.resume();
+    }
+
+    public prevFrame() {
+        this.simIdx -= 2;
+        this.currentTimeMs -= interval * 2;
+        this.update(this.baseSimLength);
     }
 
     public nextFrame() {
