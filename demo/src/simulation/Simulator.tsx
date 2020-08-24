@@ -38,7 +38,7 @@ export default class Simulator extends React.Component<{ }, IState>{
 
     constructor(props: any) {
         super(props)
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 30; i++) {
             this.boids.push(new Boid(100,  100));
         }
 
@@ -53,10 +53,13 @@ export default class Simulator extends React.Component<{ }, IState>{
         });
     }
 
+    /*
+    Broken in the simulator for now
+     */
     componentDidMount() {
         const elements: HTMLCollectionOf<Element> = document.getElementsByClassName("section");
-
-/*        for (let i = 0; i < elements.length; i++) {
+/*
+        for (let i = 0; i < elements.length; i++) {
             const item = elements.item(i)
             if (item !== null) {
                 const domObstacles: ILine[] = boundingClientToObstacles(item.getBoundingClientRect());

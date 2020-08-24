@@ -110,15 +110,15 @@ export default class Boid {
 
         this.drawAvatar(ctx, elapsedTimeMs)
 
-        this.drawArrowPosVec(ctx, this.position, this.avoidance, "#FF0000")
+/*        this.drawArrowPosVec(ctx, this.position, this.avoidance, "#FF0000")
         this.drawArrowPosVec(ctx, this.position, this.cohesion, "#FF00FF")
         this.drawArrowPosVec(ctx, this.position, this.alignment, "#FFFF00")
-        this.drawArrowPosVec(ctx, this.position, this.separation, "#0000FF")
+        this.drawArrowPosVec(ctx, this.position, this.separation, "#0000FF")*/
 
 
-        drawArrow(ctx, this.position.x, this.position.y,
+        /*drawArrow(ctx, this.position.x, this.position.y,
             this.position.x + this.direction.x * 100,
-            this.position.y + this.direction.y * 100, "#00FFFF");
+            this.position.y + this.direction.y * 100, "#00FFFF");*/
 
     }
 

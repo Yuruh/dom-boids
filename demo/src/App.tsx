@@ -1,19 +1,19 @@
-import React, {MutableRefObject, useEffect} from 'react';
+import React, {MutableRefObject} from 'react';
 import './App.scss';
 import {SliderSection} from "./SliderSection";
 import Simulator from "./simulation/Simulator";
+import Text from "./text";
 
-// If simulator becomes a react component, we get a ref on it
-function SimulatorButton() {
-  //  let simulator = new Simulator();
-
-    useEffect(() => {
-//        simulator = new Simulator();
-    })
+function SimulatorControls() {
 
     const ref: MutableRefObject<Simulator> = React.useRef(new Simulator({}));
 
-    return <h4><button onClick={() => {
+    return <h4 style={{
+        position: "fixed",
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "100%",
+    }}><button onClick={() => {
         ref.current.start();
     }}>Start</button>
         <button onClick={() => {
@@ -36,16 +36,18 @@ function SimulatorButton() {
 }
 
 function App() {
-
     return (
         <div className="App">
-            <h1>DOM BOIDS</h1>
-            <h4>Teeming the web with life</h4>
-            <h6>By <a href={"https://github.com/yuruh"} target={"_blank"} rel="noopener noreferrer">Antoine Lempereur</a></h6>
-            <p>Based on Craig Reynolds BOIDS model, stuff that should be said so ppl understand what's going on</p>
-            <SimulatorButton/>
+            <SimulatorControls/>
+            <p style={{margin: 5}}>{Text.alphaVersion}</p>
+            <br/>
+            <h1>{Text.title}</h1>
+            <h4>{Text.tagline}</h4>
+            <h6>{Text.by} <a href={"https://github.com/yuruh"} target={"_blank"} rel="noopener noreferrer">Antoine Lempereur</a></h6>
+            <p>{Text.basicExplanation}</p>
+            <p>{Text.trickyQuestion}</p>
             <hr/>
-            <h2>Configuring the simulation</h2>
+            <h2>{Text.configTitle}</h2>
             <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
             <span style={{display: "flex"}}>
                 <SliderSection title={"Alignment"} explanation={"Boids should always steer towards the average heading of local flockmates"} value={1} onSliderValueChange={() => {}}/>
@@ -64,10 +66,10 @@ function App() {
                 <SliderSection title={"Number of FPS"} explanation={"Lower the value if your browsers has a hard time showing every frame"} value={1} onSliderValueChange={() => {}}/>
             </div>
             <hr/>
-            <h2>About the project</h2>
-            <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in the boids environment</p></div>
+            <h2>{Text.aboutTitle}</h2>
+            <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment.</p></div>
             <div className={"section"}>Technical Specificities</div>
-            <div className={"section"}>Development</div>
+            <div className={"section"}>Source Code / Contributing</div>
         </div>
     );
 }

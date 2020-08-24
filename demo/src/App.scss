@@ -1,5 +1,6 @@
 $primary-color: #333;
 $secondary-color: #eeeeee;
+$barely-visible: #BBBBBB;
 
 .align-right {
   display: flex;
@@ -28,9 +29,9 @@ hr {
 }
 
 h6 {
-  color: $secondary-color;
+  color: $barely-visible;
   a {
-    color: $secondary-color
+    color: $barely-visible;
   }
 }
 
@@ -40,6 +41,5 @@ h6 {
   padding: 1vw;
   margin: 1vw;
   box-shadow: 0 0 3px $primary-color;
-  font-size: 0.7em;
   text-align: center;
 }
