@@ -115,8 +115,7 @@ export default class Simulator extends React.Component<{ }, IState>{
         let inputBuffer: Uint8Array = this.Input.encode(msg).finish()
 
         return new Promise((resolve, reject) => {
-//        fetch('https://boids.yuruh.fr', {
-            fetch('http://localhost:8080', {
+            fetch(process.env.REACT_APP_API_URL || "http://localhost:8080", {
                 method: 'post',
                 body: inputBuffer
             }).then(function(response) {
