@@ -1,4 +1,5 @@
-import {IInput, ILine, IOutput, IParameters, ISimulation} from "./ProtoInterfaces"
+import {IInput, ILine, IOutput, ISimulation} from "./ProtoInterfaces"
+import Parameters from "./Parameters";
 import Boid, {drawArrow} from "./Boid";
 import {Root, Type} from "protobufjs";
 import {boundingClientToObstacles} from "./domParsing";
@@ -10,7 +11,7 @@ const protobuf = require("protobufjs");
 const interval = 1 / 60 * 1000; // 60 FPS;
 
 interface IProps {
-    params: IParameters,
+    params: Parameters,
 }
 
 interface IState {
@@ -40,9 +41,9 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     private intervalId: NodeJS.Timeout = setTimeout(() => {}, 0);
 
-    constructor(props: any) {
+    constructor(props: IProps) {
         super(props)
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < props.params.numberOfBoids; i++) {
             this.boids.push(new Boid(100,  100));
         }
 
@@ -134,13 +135,11 @@ export default class Simulator extends React.Component<IProps, IState>{
         })
     }
 
-
     private clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     private drawSimulation(simulation: ISimulation) {
-//        console.log(simulation)
         this.clearCanvas();
   //      this.ctx.strokeStyle =  "#ffffff"
 /*        for (const obstacle of input.map.obstacles) {
@@ -174,6 +173,42 @@ export default class Simulator extends React.Component<IProps, IState>{
         }
     }
 
+    public restartFromCurrentFrame() {
+        this.pause();
+        const lastSim: ISimulation = this.simulations[this.simIdx];
+        if (!lastSim) {
+            return;
+        }
+        this.reset();
+        for (let i = this.boids.length; i < this.props.params.numberOfBoids; i++) {
+            const boid: Boid = new Boid(100, 100)
+            this.boids.push(boid);
+            lastSim.flock.boids.push(boid)
+        }
+
+        if (this.props.params.numberOfBoids < this.boids.length) {
+            this.boids = this.boids.slice(0, this.props.params.numberOfBoids);
+            lastSim.flock.boids = lastSim.flock.boids.slice(0, this.props.params.numberOfBoids);
+        }
+
+
+        const payload: IInput = this.buildInput();
+        this.getNextSimulations(payload, {
+            flock: lastSim.flock,
+            elapsedTimeSecond: 0,
+        }).then((result: IOutput) => {
+            this.simulations = this.simulations.concat(result.simulations);
+            this.baseSimLength = this.simulations.length;
+        });
+        this.resume();
+    }
+
+    private reset() {
+        this.simulations = [];
+        this.currentTimeMs = 0;
+        this.simIdx = 0;
+    }
+
     public start() {
         this.setupCanvas();
         const payload: IInput = this.buildInput();
@@ -188,7 +223,6 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.baseSimLength = this.simulations.length;
 
         });
-
 
         this.resume();
     }
@@ -257,9 +291,7 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     public stop() {
         this.pause();
-        this.simulations = [];
-        this.currentTimeMs = 0;
-        this.simIdx = 0;
+        this.reset();
         this.clearCanvas();
     }
 

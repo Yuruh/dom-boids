@@ -1,15 +1,19 @@
-import React, {ChangeEvent, MutableRefObject} from 'react';
+import React, {ChangeEvent, MutableRefObject, useEffect} from 'react';
 import './App.scss';
 import Simulator from "./simulation/Simulator";
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
-import {IParameters} from "./simulation/ProtoInterfaces";
 
 function SimulatorControls(props: {
-    params: IParameters,
+    params: Parameters,
 }) {
-
     const ref: MutableRefObject<Simulator | null> = React.useRef(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.restartFromCurrentFrame();
+        }
+    }, [props.params]);
 
     return <h4 style={{
         position: "fixed",
@@ -44,16 +48,16 @@ function SimulatorControls(props: {
     </h4>
 }
 
-function Configuration(props: {onParamsChange:(params: IParameters) => void}) {
+function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
     const [config, setConfig] = React.useState<Parameters>(new Parameters());
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>, key: string) {
-        setConfig({
+        const updated: Parameters = {
             ...config,
             [key]: Number(event.target.value),
-        })
-        props.onParamsChange(config);
-
+        }
+        setConfig(updated);
+        props.onParamsChange(updated);
     }
 
     function Slider(props: {
@@ -73,6 +77,8 @@ function Configuration(props: {onParamsChange:(params: IParameters) => void}) {
 
     return <div className={"align-center"}>
         <div className={"section"}>
+            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={100} step={1}/>
+            <hr/>
             <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
             <br/>
             <Slider objectKey="cohesionScale" title={"Cohesion"} min={0} max={2} step={0.01}/>
@@ -90,20 +96,15 @@ function Configuration(props: {onParamsChange:(params: IParameters) => void}) {
             <Slider objectKey="maxLocalFlockmates" title={"Max Local Flockmates"} min={0} max={100} step={1}/>
         </div>
     </div>
-
-/*    Number of Boids
-    <input type={"range"}/>
-    <br/>*/
-
 }
 
 function App() {
     const [params, setParams] = React.useState<Parameters>(new Parameters());
-
+    
     return (
         <div className="App">
             <SimulatorControls params={params}/>
-            <p style={{margin: 5}}>{Text.alphaVersion}</p>
+            <br/>
             <br/>
             <h1>{Text.title}</h1>
             <h4>{Text.tagline}</h4>
@@ -112,14 +113,15 @@ function App() {
             <p>{Text.trickyQuestion}</p>
             <hr/>
             <h2>{Text.configTitle}</h2>
-            <Configuration onParamsChange={(params: Parameters) => setParams(params)}/>
+            <Configuration onParamsChange={(params: Parameters) =>
+                setParams(params)
+            }/>
             <hr/>
             <h2>{Text.aboutTitle}</h2>
             <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment.</p></div>
-            <div className={"section"}>Technical Specificities</div>
-            <div className={"section"}>Source Code / Contributing</div>
-
-            <h2>Understanding what's going on (toggle arrows and explain rules)</h2>
+            <div className={"section"}>Technical Specificities / Architecture</div>
+            <div className={"section"}>Source Code / Contributing / Roadmap</div>
+            <div className={"section"}>Understanding what's going on: how does it work ? (toggle arrows and explain rules)</div>
         </div>
     );
 }
