@@ -1,7 +1,7 @@
 import {IPos2D} from "./ProtoInterfaces";
 
-const animUpdateRateMs = 75;
-const imageSize = 50;
+const animUpdateRateMs = 50;
+const imageSize = 40;
 const nbOfImage = 6;
 
 export function drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: number, toX: number, toY: number, color: string) {

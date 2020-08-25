@@ -58,12 +58,9 @@ export default class Simulator extends React.Component<IProps, IState>{
         });
     }
 
-    /*
-    Broken in the simulator for now
-     */
     componentDidMount() {
         const elements: HTMLCollectionOf<Element> = document.getElementsByClassName("section");
-/*
+
         for (let i = 0; i < elements.length; i++) {
             const item = elements.item(i)
             if (item !== null) {
@@ -71,7 +68,7 @@ export default class Simulator extends React.Component<IProps, IState>{
 
                 this.obstacles = this.obstacles.concat(domObstacles);
             }
-        }*/
+        }
     }
 
 
@@ -141,14 +138,6 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     private drawSimulation(simulation: ISimulation) {
         this.clearCanvas();
-  //      this.ctx.strokeStyle =  "#ffffff"
-/*        for (const obstacle of input.map.obstacles) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(obstacle.a.x, obstacle.a.y)
-            this.ctx.lineTo(obstacle.b.x, obstacle.b.y);
-            this.ctx.stroke();
-            this.ctx.closePath();
-        }*/
         if (simulation.obstaclesNormalVectors && simulation.obstaclesPosition) {
             for (let j = 0; j < simulation.obstaclesNormalVectors?.length; j++) {
                 simulation.obstaclesPosition[j].x = simulation.obstaclesPosition[j].x || 0;

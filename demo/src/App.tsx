@@ -4,6 +4,9 @@ import Simulator from "./simulation/Simulator";
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
 
+/*
+    Imperative style, easier to control simulation this way
+ */
 function SimulatorControls(props: {
     params: Parameters,
 }) {
@@ -44,6 +47,11 @@ function SimulatorControls(props: {
             if (ref.current)
                 ref.current.stop();
         }}>Stop</button>
+        <br/>
+        <label>
+            Obstacles Force
+        <input type={"checkbox"}/>
+        </label>
         <Simulator ref={ref} params={props.params}/>
     </h4>
 }
@@ -100,10 +108,11 @@ function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
 
 function App() {
     const [params, setParams] = React.useState<Parameters>(new Parameters());
-    
+
     return (
         <div className="App">
             <SimulatorControls params={params}/>
+            <br/>
             <br/>
             <br/>
             <h1>{Text.title}</h1>
@@ -118,10 +127,10 @@ function App() {
             }/>
             <hr/>
             <h2>{Text.aboutTitle}</h2>
-            <div className={"section"}>About<p>Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment.</p></div>
+            <div className={"section"}>Purpose<p>Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment.</p></div>
+            <div className={"section"}>Understanding what's going on: how does it work ? (toggle arrows and explain rules)</div>
             <div className={"section"}>Technical Specificities / Architecture</div>
             <div className={"section"}>Source Code / Contributing / Roadmap</div>
-            <div className={"section"}>Understanding what's going on: how does it work ? (toggle arrows and explain rules)</div>
         </div>
     );
 }
