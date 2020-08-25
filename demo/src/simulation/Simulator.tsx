@@ -1,4 +1,4 @@
-import {IInput, ILine, IOutput, ISimulation} from "./ProtoInterfaces"
+import {IInput, ILine, IOutput, IParameters, ISimulation} from "./ProtoInterfaces"
 import Boid, {drawArrow} from "./Boid";
 import {Root, Type} from "protobufjs";
 import {boundingClientToObstacles} from "./domParsing";
@@ -9,11 +9,15 @@ const protobuf = require("protobufjs");
 
 const interval = 1 / 60 * 1000; // 60 FPS;
 
+interface IProps {
+    params: IParameters,
+}
+
 interface IState {
     loading: boolean
 }
 
-export default class Simulator extends React.Component<{ }, IState>{
+export default class Simulator extends React.Component<IProps, IState>{
     // typescript doesn't realize that they are assigned in the constructor
     // @ts-ignore
     private canvas: HTMLCanvasElement;
@@ -101,7 +105,7 @@ export default class Simulator extends React.Component<{ }, IState>{
         this.canvas = canvas;
         const ctx = this.canvas.getContext("2d")
         if (!ctx) {
-            throw "Could not create canvas"
+            throw new Error("Could not create canvas");
         }
         this.ctx = ctx;
     }
@@ -213,7 +217,8 @@ export default class Simulator extends React.Component<{ }, IState>{
             simulationDurationSec: 5,
             flock: {
                 boids: this.boids
-            }
+            },
+            parameters: this.props.params
         }
     }
 
