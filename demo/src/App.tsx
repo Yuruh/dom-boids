@@ -49,8 +49,8 @@ function SimulatorControls(props: {
         }}>Stop</button>
         <br/>
         <label>
-            Obstacles Force
-        <input type={"checkbox"}/>
+            Obstacles Force / Quadtree / Rules on boid forces
+            <input type={"checkbox"}/>
         </label>
         <Simulator ref={ref} params={props.params}/>
     </h4>

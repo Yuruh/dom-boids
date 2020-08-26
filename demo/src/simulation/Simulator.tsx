@@ -1,6 +1,6 @@
-import {IInput, ILine, IOutput, ISimulation} from "./ProtoInterfaces"
+import {IInput, ILine, IOutput, ISimulation, IPos2D} from "./ProtoInterfaces"
 import Parameters from "./Parameters";
-import Boid, {drawArrow} from "./Boid";
+import Boid, {drawArrow, drawLine} from "./Boid";
 import {Root, Type} from "protobufjs";
 import {boundingClientToObstacles} from "./domParsing";
 import React from "react";
@@ -127,6 +127,7 @@ export default class Simulator extends React.Component<IProps, IState>{
 
                 const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
 
+                console.log(ret);
                 resolve(ret);
             }).catch(reject);
         })
@@ -159,6 +160,9 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
             this.boids[i].draw(this.ctx, "", simulation.elapsedTimeSecond * 1000);
             i++;
+        }
+        for (const line of simulation.flock.quadTree) {
+            drawLine(this.ctx, line.a, line.b, "#222222");
         }
     }
 
@@ -239,7 +243,8 @@ export default class Simulator extends React.Component<IProps, IState>{
             imagesPerSecond: 60,
             simulationDurationSec: 5,
             flock: {
-                boids: this.boids
+                boids: this.boids,
+                quadTree: []
             },
             parameters: this.props.params
         }

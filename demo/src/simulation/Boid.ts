@@ -10,12 +10,20 @@ export function drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: n
     const dy = toY - fromY;
     const angle = Math.atan2(dy, dx);
     ctx.strokeStyle = color;
-    ctx.beginPath();//ADD THIS LINE!<<<<<<<<<<<<<
+    ctx.beginPath();
     ctx.moveTo(fromX, fromY);
     ctx.lineTo(toX, toY);
     ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
     ctx.moveTo(toX, toY);
     ctx.lineTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+}
+
+export function drawLine(ctx: CanvasRenderingContext2D, a: IPos2D, b: IPos2D, color: string) {
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(a.x || 0, a.y || 0);
+    ctx.lineTo(b.x || 0, b.y || 0);
     ctx.stroke();
 }
 
