@@ -58,5 +58,5 @@ export interface IBoid {
 
 export interface IFlock {
     boids: IBoid[];
-    quadTree: ILine[];
+    quadTree?: ILine[];
 }

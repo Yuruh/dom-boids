@@ -161,8 +161,10 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids[i].draw(this.ctx, "", simulation.elapsedTimeSecond * 1000);
             i++;
         }
-        for (const line of simulation.flock.quadTree) {
-            drawLine(this.ctx, line.a, line.b, "#222222");
+        if (simulation.flock.quadTree) {
+            for (const line of simulation.flock.quadTree) {
+                drawLine(this.ctx, line.a, line.b, "#222222");
+            }
         }
     }
 

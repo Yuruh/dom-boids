@@ -14,5 +14,5 @@ export default class Parameters implements IParameters {
         The number of boids in the simulation.
         Not sent to the server but used by Simulator to build the flock
      */
-    numberOfBoids: number = 30;
+    numberOfBoids: number = 5;
 }

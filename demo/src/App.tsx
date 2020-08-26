@@ -85,7 +85,7 @@ function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
 
     return <div className={"align-center"}>
         <div className={"section"}>
-            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={100} step={1}/>
+            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={500} step={1}/>
             <hr/>
             <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
             <br/>
