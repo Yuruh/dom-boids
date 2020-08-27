@@ -1,0 +1,16 @@
+@import "../App";
+
+#simulator-controls {
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+
+  button  {
+    cursor: pointer;
+  }
+  i {
+    font-size: 2rem;
+  }
+}

@@ -1,6 +1,9 @@
-$primary-color: #333;
-$secondary-color: #eeeeee;
+$primary-color: #8BD8BD;
+$secondary-color: #243665;
+$default-color: #FFFFFF;
 $barely-visible: #BBBBBB;
+
+//865 max width
 
 .align-right {
   display: flex;
@@ -12,19 +15,22 @@ $barely-visible: #BBBBBB;
   justify-content: center;
 }
 
+body {
+  background-color: $secondary-color;
+  color: $default-color;
+}
+
 h1, h4, h6, p, h2 {
   text-align: center;
 }
 
-h2 {
-  margin-left: 5vw;
+h2, h3, h4 {
+  color: $primary-color;
 }
 
 hr {
-  color: $secondary-color;
-  margin-top: 3vh;
-  margin-left: 3vw;
-  margin-right: 3vw;
+  color: $primary-color;
+  margin: 2vh 4vh 2vh 4vh;
   opacity: 0.2;
 }
 
@@ -35,11 +41,33 @@ h6 {
   }
 }
 
+#grid-wrapper {
+  $offset: 20vw;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  padding-left: $offset;
+  padding-right: $offset;
+}
+
 .section {
-  width: 33vw;
   background-color: $secondary-color;
   padding: 1vw;
   margin: 1vw;
   box-shadow: 0 0 3px $primary-color;
+  border: 1px solid $primary-color ;
   text-align: center;
+  i {
+    font-size: 1.5em;
+    margin-right: 7px;
+  }
+  a {
+    color: $default-color;
+
+    i {
+      font-size: 2em;
+    }
+  }
 }

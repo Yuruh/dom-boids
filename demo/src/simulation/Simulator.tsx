@@ -139,7 +139,7 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     private drawSimulation(simulation: ISimulation) {
         this.clearCanvas();
-        if (simulation.obstaclesNormalVectors && simulation.obstaclesPosition) {
+/*        if (simulation.obstaclesNormalVectors && simulation.obstaclesPosition) {
             for (let j = 0; j < simulation.obstaclesNormalVectors?.length; j++) {
                 simulation.obstaclesPosition[j].x = simulation.obstaclesPosition[j].x || 0;
                 simulation.obstaclesPosition[j].y = simulation.obstaclesPosition[j].y || 0;
@@ -149,7 +149,7 @@ export default class Simulator extends React.Component<IProps, IState>{
                     simulation.obstaclesPosition[j].x + simulation.obstaclesNormalVectors[j].x * 300,
                     simulation.obstaclesPosition[j].y + simulation.obstaclesNormalVectors[j].y * 300, "#FFAAFF");
             }
-        }
+        }*/
         let i = 0;
         for (const boid of simulation.flock.boids) {
             this.boids[i].position = boid.position

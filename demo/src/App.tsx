@@ -3,58 +3,14 @@ import './App.scss';
 import Simulator from "./simulation/Simulator";
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
+import SimulatorControls from "./simulation/SimulatorControls";
+import TextSection from "./TextSection";
 
-/*
-    Imperative style, easier to control simulation this way
- */
-function SimulatorControls(props: {
-    params: Parameters,
-}) {
-    const ref: MutableRefObject<Simulator | null> = React.useRef(null);
-
-    useEffect(() => {
-        if (ref.current) {
-            ref.current.restartFromCurrentFrame();
-        }
-    }, [props.params]);
-
-    return <h4 style={{
-        position: "fixed",
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "100%",
-    }}><button onClick={() => {
-        if (ref.current)
-            ref.current.start();
-    }}>Start</button>
-        <button onClick={() => {
-            if (ref.current)
-                ref.current.pause();
-        }}>Pause</button>
-        <button onClick={() => {
-            if (ref.current)
-                ref.current.resume();
-        }}>Resume</button>
-        <button onClick={() => {
-            if (ref.current)
-                ref.current.prevFrame();
-        }}>Prev Frame</button>
-        <button onClick={() => {
-            if (ref.current)
-                ref.current.nextFrame();
-        }}>Next Frame</button>
-        <button onClick={() => {
-            if (ref.current)
-                ref.current.stop();
-        }}>Stop</button>
-        <br/>
-        <label>
-            Obstacles Force / Quadtree / Rules on boid forces
-            <input type={"checkbox"}/>
-        </label>
-        <Simulator ref={ref} params={props.params}/>
-    </h4>
-}
+/*On pourrait avoir un boutton qui propose d'arrêter les collisions avec les div aussi.
+<label>
+Obstacles Force / Quadtree / Rules on boid forces
+<input type={"checkbox"}/>
+</label>*/
 
 function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
     const [config, setConfig] = React.useState<Parameters>(new Parameters());
@@ -84,7 +40,9 @@ function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
     }
 
     return <div className={"align-center"}>
-        <div className={"section"}>
+        <div className={"section"} style={{
+            width: "23vw"
+        }}>
             <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={500} step={1}/>
             <hr/>
             <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
@@ -127,10 +85,35 @@ function App() {
             }/>
             <hr/>
             <h2>{Text.aboutTitle}</h2>
-            <div className={"section"}>Purpose<p>Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment.</p></div>
-            <div className={"section"}>Understanding what's going on: how does it work ? (toggle arrows and explain rules)</div>
-            <div className={"section"}>Technical Specificities / Architecture</div>
-            <div className={"section"}>Source Code / Contributing / Roadmap</div>
+            <div id="grid-wrapper">
+                <TextSection title={"Purpose"} size={20} content={"Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment."}/>
+                <TextSection title={"What's going on"} size={20} content={"Stuff"}/>
+                <TextSection title={<span>
+                    <i className={"fa fa-cogs"}/>
+                    The simulation service
+                </span>} size={20} content={<span>
+                    <a href={"https://github.com/yuruh/boids-service"} target={"_blank"} rel="noopener noreferrer">
+                        <i className={"fa fa-github"}/>
+                        Source Code
+                    </a>
+                    <br/>
+
+                    <hr/>
+                    Contribute
+                    <hr/>
+                    Star
+                </span>}/>
+                <TextSection title={<span>
+                    <i className={"fa fa-code"}/>
+                    The web demo
+                </span>} size={20} content={<span>
+                    <a href={"https://github.com/yuruh/dom-boids"} target={"_blank"} rel="noopener noreferrer">
+                        <i className={"fa fa-github"} style={{marginRight: 5}}/>
+                        Demo Code
+                    </a>
+                    <br/>
+                </span>}/>
+            </div>
         </div>
     );
 }

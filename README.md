@@ -23,6 +23,7 @@ Demo in React.JS.
 
 ## Next Steps
 
+* Slow-demo mode, with vectors showing on screen
 * Automatically pick DOM elements to avoid
 * Deploy as NPM package
 * Deploy as Browser Extension
