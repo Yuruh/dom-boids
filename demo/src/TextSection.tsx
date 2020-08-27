@@ -10,6 +10,6 @@ export default function TextSection(props: {title: string | JSX.Element, content
         //width: size + "vw"
     }}>
         <h3>{props.title}</h3>
-        <p>{props.content}</p>
+        <span>{props.content}</span>
     </div>
 }

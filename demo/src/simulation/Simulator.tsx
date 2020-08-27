@@ -59,14 +59,20 @@ export default class Simulator extends React.Component<IProps, IState>{
     }
 
     componentDidMount() {
-        const elements: HTMLCollectionOf<Element> = document.getElementsByClassName("section");
+        /*
+            FIXME: this does not support hot resizing, a react hook that retrieves media queries should be used
+            And the value is hardcoded
+         */
+        if (document.body.offsetWidth > 1230) {
+            const elements: HTMLCollectionOf<Element> = document.getElementsByClassName("section");
 
-        for (let i = 0; i < elements.length; i++) {
-            const item = elements.item(i)
-            if (item !== null) {
-                const domObstacles: ILine[] = boundingClientToObstacles(item.getBoundingClientRect());
+            for (let i = 0; i < elements.length; i++) {
+                const item = elements.item(i)
+                if (item !== null) {
+                    const domObstacles: ILine[] = boundingClientToObstacles(item.getBoundingClientRect());
 
-                this.obstacles = this.obstacles.concat(domObstacles);
+                    this.obstacles = this.obstacles.concat(domObstacles);
+                }
             }
         }
     }

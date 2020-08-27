@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, Fragment} from 'react';
 import './App.scss';
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
@@ -10,6 +10,12 @@ import TextSection from "./TextSection";
 Obstacles Force / Quadtree / Rules on boid forces
 <input type={"checkbox"}/>
 </label>*/
+
+/*
+TODO
+responsive
+better sim (prevent double sim, and don't resume on param change)
+ */
 
 function OutLink(props: React.PropsWithChildren<{
     link: string
@@ -40,11 +46,11 @@ const simService = <TextSection title={<span>
     here
 </a>.
     <hr/>
-    More information, Road map and Contribution Guidelines can be found in the repository's <a href={"https://github.com/yuruh/boids-service#boids-service"} target={"_blank"} rel="noopener noreferrer">
+    More information and features road map can be found in the repository's <a href={"https://github.com/yuruh/boids-service#boids-service"} target={"_blank"} rel="noopener noreferrer">
     README.md
 </a>
     <hr/>
-    <i className={"fa fa-star"}/>If you enjoy this project, leave a star<i className={"fa fa-star"}/>
+    <i className={"fa fa-star"}/>{Text.star}<i className={"fa fa-star"}/>
 </span>}/>
 
 const demo = <TextSection title={<span>
@@ -68,11 +74,11 @@ const demo = <TextSection title={<span>
     here
 </a>.
     <hr/>
-    More information, Road map and Contribution Guidelines can be found in the repository's <OutLink link={"https://github.com/yuruh/dom-boids#dom-boids"}>
+    More information and features road map can be found in the repository's <OutLink link={"https://github.com/yuruh/dom-boids#dom-boids"}>
     README.md
 </OutLink>
     <hr/>
-    <i className={"fa fa-star"}/>If you enjoy this project, leave a star<i className={"fa fa-star"}/>
+    <i className={"fa fa-star"}/>{Text.star}<i className={"fa fa-star"}/>
 </span>}/>
 
 function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
@@ -103,28 +109,31 @@ function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
     }
 
     return <div className={"align-center"}>
-        <div className={"section"} style={{
-            width: "23vw"
-        }}>
-            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={500} step={1}/>
-            <hr/>
-            <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
-            <br/>
-            <Slider objectKey="cohesionScale" title={"Cohesion"} min={0} max={2} step={0.01}/>
-            <br/>
-            <Slider objectKey="separationScale" title={"Separation"} min={0} max={2} step={0.01}/>
-            <br/>
-            <Slider objectKey="avoidanceScale" title={"Obstacle avoidance"} min={0} max={2} step={0.01}/>
+        <div className={"section"} id={"config-section"}>
+            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={300} step={1}/>
             <hr/>
             <Slider objectKey="visionDistance" title={"Vision Distance"} min={0} max={500} step={1}/>
             <br/>
             <Slider objectKey="obstacleDistance" title={"Obstacle Distance"} min={0} max={500} step={1}/>
             <br/>
             <Slider objectKey="separationDistance" title={"Separation Distance"} min={0} max={500} step={1}/>
-            <hr/>
+            <br/>
             <Slider objectKey="maxLocalFlockmates" title={"Max Local Flockmates"} min={0} max={100} step={1}/>
+            <hr/>
+
+            <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
+            <br/>
+            <Slider objectKey="cohesionScale" title={"Cohesion"} min={0} max={2} step={0.01}/>
+            <br/>
+            <Slider objectKey="separationScale" title={"Separation"} min={0} max={2} step={0.01}/>
+            <br/>
+            <Slider objectKey="avoidanceScale" title={"Evasion"} min={0} max={2} step={0.01}/>
         </div>
     </div>
+}
+
+function ParamDescription(props: {title: string, content: string}) {
+    return <li><strong>{props.title}</strong>: {props.content}</li>
 }
 
 function App() {
@@ -137,22 +146,90 @@ function App() {
             <br/>
             <br/>
             <h1>{Text.title}</h1>
-            <h4>{Text.tagline}</h4>
+            <h2>{Text.tagline}</h2>
             <h6>{Text.by} <a href={"https://github.com/yuruh"} target={"_blank"} rel="noopener noreferrer">Antoine Lempereur</a></h6>
             <p>{Text.basicExplanation}</p>
             <p>{Text.trickyQuestion}</p>
             <hr/>
-            <h2>{Text.configTitle}</h2>
+            <h3>{Text.configTitle}</h3>
             <Configuration onParamsChange={(params: Parameters) =>
                 setParams(params)
             }/>
             <hr/>
-            <h2>{Text.aboutTitle}</h2>
+            <h3>{Text.aboutTitle}</h3>
+            {/*Leave some space for boids to pass through*/}
+            {// Q&D responsive, see Simulator fixme
+                document.body.offsetWidth > 1230 && <React.Fragment>
+                <br/>
+            <br/>
+            <br/>
+            <br/>
+                <br/></React.Fragment>}
             <div id="grid-wrapper">
-                <TextSection title={"Purpose"} size={20} content={"Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment."}/>
-                <TextSection title={"What's going on"} size={20} content={"Stuff"}/>
-                {simService}
-                {demo}
+                <div id="purpose" className={"align-center"}>
+                    <TextSection title={"Goals"} size={20} content={<span>
+                        Making a complex behaviour emerge from simple rules.
+                        <hr/>
+                        Transforming a web page in a suitable environment.
+                        <hr/>
+                        Building an efficient web-service easily accessible.
+                        <hr/>
+                        Providing clear visual indications to explain behaviour.
+                        <br/>
+                        <small>Coming soon</small>
+                        <hr/>
+                        Easily integrate to any website.
+                        <br/>
+                        <small>Down the road</small>
+                    </span>}/>
+                </div>
+                <div id={"explanation"} className={"align-center"}>
+                    <TextSection title={"What's going on ?"} size={20} content={<span>
+                        Here's the explanation on how boids decide what to do, and the simulation parameters.
+                        <br/>
+                        Parameters are shown in <strong>bold</strong>.
+                        <br/>
+                        All distances are in pixels
+                        <hr/>
+                        Boids make decisions by observing what they local flock mates are doing and their environment.
+                        <br/>
+                        <ul>
+                            <ParamDescription title={"Vision Distance"} content={"How close boids have to be detect each other"}/>
+                            <ParamDescription title={"Separation Distance"} content={"How close boids have to be before they decide to try to avoid each other"}/>
+                            <ParamDescription title={"Obstacle Distance"} content={"How close boids have to be to an obstacle to start steering away from it"}/>
+                            <ParamDescription title={"Max local flockmates"} content={"The max number of mates used to make a decision"}/>
+                        </ul>
+                        <hr/>
+                        To decide where they should head to, they respect 4 rules:
+                        <ul>
+                            <ParamDescription title={"Cohesion"} content={"Boids should try to steer to move toward the average position of local flockmates"}/>
+                            <ParamDescription title={"Alignment"} content={"Boids should try to steer towards the average heading of local flockmates"}/>
+                            <ParamDescription title={"Separation"} content={"Boids should try to steer to avoid crowding local flockmates"}/>
+                            <ParamDescription title={"Evasion"} content={"Boids should try to steer away from obstacles"}/>
+                        </ul>
+                    </span>}/>
+                </div>
+                <div id={"simulation-about"} className={"align-center"}>
+                    {simService}
+                </div>
+                <div id={"demo-about"} className={"align-center"}>
+                    {demo}
+                </div>
+                <div id={"author"} className={"align-center"}>
+                    <TextSection title={"Author"} size={20} content={<span>
+                        <p>Hello ! I'm Antoine, french full stack engineer from Lille. Hit me up on socials !</p>
+                        <OutLink link={"https://github.com/yuruh"}>
+                            <i className={"fa fa-github"}/>
+                        </OutLink>
+                        <OutLink link={"https://www.linkedin.com/in/antoine-lempereur/"}>
+                            <i className={"fa fa-linkedin"}/>
+                        </OutLink>
+                        <OutLink link={"https://www.instagram.com/antoine.yuruh"}>
+                            <i className={"fa fa-instagram"}/>
+                        </OutLink>
+                    </span>}/>
+                </div>
+
             </div>
         </div>
     );

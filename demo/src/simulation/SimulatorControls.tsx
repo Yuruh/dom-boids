@@ -61,6 +61,7 @@ export default function SimulatorControls(props: {
         <button title={"Stop"} onClick={() => {
             if (ref.current)
                 ref.current.stop();
+            setAnimState(AnimState.STOP)
         }}><i className="fa fa-stop"/></button>
         </React.Fragment>}
         <br/>
