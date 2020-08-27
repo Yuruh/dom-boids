@@ -1,6 +1,5 @@
-import React, {ChangeEvent, MutableRefObject, useEffect} from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.scss';
-import Simulator from "./simulation/Simulator";
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
 import SimulatorControls from "./simulation/SimulatorControls";
@@ -11,6 +10,70 @@ import TextSection from "./TextSection";
 Obstacles Force / Quadtree / Rules on boid forces
 <input type={"checkbox"}/>
 </label>*/
+
+function OutLink(props: React.PropsWithChildren<{
+    link: string
+}>) {
+    return <a target={"_blank"} rel="noopener noreferrer" href={props.link}>
+        {props.children}
+    </a>
+}
+
+const simService = <TextSection title={<span>
+    <i className={"fa fa-cogs"}/>
+    The simulation service
+</span>} size={20} content={<span>
+    <OutLink link={"https://github.com/yuruh/boids-service"}>
+        <i className={"fa fa-github"}/>
+        Source Code
+    </OutLink>
+    <hr/>
+    Written in C++.
+    <br/>
+    Exposes an HTTP endpoint, using <OutLink link={"https://github.com/microsoft/cpprestsdk"}>cpprestsdk</OutLink> library.
+    <br/>
+    Serialize data with <OutLink link={"https://developers.google.com/protocol-buffers/docs/cpptutorial"}>protobuf</OutLink> for efficiency. The protocol can be found <a href={"https://github.com/Yuruh/boids-service/blob/master/proto/map.proto"} target={"_blank"} rel="noopener noreferrer">
+        here.
+    </a>
+    <br/>
+    Docker image accessible <a href={"https://hub.docker.com/repository/docker/yuruh/boids"} target={"_blank"} rel="noopener noreferrer">
+    here
+</a>.
+    <hr/>
+    More information, Road map and Contribution Guidelines can be found in the repository's <a href={"https://github.com/yuruh/boids-service#boids-service"} target={"_blank"} rel="noopener noreferrer">
+    README.md
+</a>
+    <hr/>
+    <i className={"fa fa-star"}/>If you enjoy this project, leave a star<i className={"fa fa-star"}/>
+</span>}/>
+
+const demo = <TextSection title={<span>
+                    <i className={"fa fa-code"}/>
+                    The web demo
+</span>} size={20} content={<span>
+    <OutLink link={"https://github.com/yuruh/dom-boids"}>
+        <i className={"fa fa-github"}/>
+        Demo Code
+    </OutLink>
+    <hr/>
+    Written in HTML / SCSS / TypeScript.
+    <br/>
+    With React.JS.
+    <br/>
+    Draws a canvas on top of the existing webpage, and animates the boids based on the results provided by the simulation.
+    <br/>
+    Asks the simulation for 5 seconds of results, with 60 frames per second.
+    <br/>
+    Docker image accessible <a href={"https://hub.docker.com/repository/docker/yuruh/dom-boids-demo"} target={"_blank"} rel="noopener noreferrer">
+    here
+</a>.
+    <hr/>
+    More information, Road map and Contribution Guidelines can be found in the repository's <OutLink link={"https://github.com/yuruh/dom-boids#dom-boids"}>
+    README.md
+</OutLink>
+    <hr/>
+    <i className={"fa fa-star"}/>If you enjoy this project, leave a star<i className={"fa fa-star"}/>
+</span>}/>
 
 function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
     const [config, setConfig] = React.useState<Parameters>(new Parameters());
@@ -88,31 +151,8 @@ function App() {
             <div id="grid-wrapper">
                 <TextSection title={"Purpose"} size={20} content={"Making a complex behaviour emerge from simple rules. Transforming a web page in a suitable environment."}/>
                 <TextSection title={"What's going on"} size={20} content={"Stuff"}/>
-                <TextSection title={<span>
-                    <i className={"fa fa-cogs"}/>
-                    The simulation service
-                </span>} size={20} content={<span>
-                    <a href={"https://github.com/yuruh/boids-service"} target={"_blank"} rel="noopener noreferrer">
-                        <i className={"fa fa-github"}/>
-                        Source Code
-                    </a>
-                    <br/>
-
-                    <hr/>
-                    Contribute
-                    <hr/>
-                    Star
-                </span>}/>
-                <TextSection title={<span>
-                    <i className={"fa fa-code"}/>
-                    The web demo
-                </span>} size={20} content={<span>
-                    <a href={"https://github.com/yuruh/dom-boids"} target={"_blank"} rel="noopener noreferrer">
-                        <i className={"fa fa-github"} style={{marginRight: 5}}/>
-                        Demo Code
-                    </a>
-                    <br/>
-                </span>}/>
+                {simService}
+                {demo}
             </div>
         </div>
     );
