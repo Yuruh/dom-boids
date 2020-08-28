@@ -46,9 +46,8 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     constructor(props: IProps) {
         super(props)
-        for (let i = 0; i < props.params.numberOfBoids; i++) {
-            this.boids.push(new Boid(100,  100));
-        }
+        this.resetSimulations();
+        this.resetBoids();
 
         this.state = {
             loading: false
@@ -145,7 +144,6 @@ export default class Simulator extends React.Component<IProps, IState>{
                     //FIXME makes the animation lag when its tough to decode
                     const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
 
-                    console.log(ret);
                     resolve(ret);
                 }).catch(reject);
         })
@@ -197,7 +195,7 @@ export default class Simulator extends React.Component<IProps, IState>{
         if (!lastSim) {
             return;
         }
-        this.reset();
+        this.resetSimulations();
         for (let i = this.boids.length; i < this.props.params.numberOfBoids; i++) {
             const boid: Boid = new Boid(100, 100)
             this.boids.push(boid);
@@ -220,7 +218,7 @@ export default class Simulator extends React.Component<IProps, IState>{
         this.resume();
     }
 
-    private reset() {
+    private resetSimulations() {
         this.simulations = [];
         this.currentTimeMs = 0;
         this.simIdx = 0;
@@ -292,6 +290,11 @@ export default class Simulator extends React.Component<IProps, IState>{
                         // FIXME periodically part of this array (when size > baseSImLength * 3 i'd say)
                         // Must have fixed elapsed time before
                         this.simulations = this.simulations.concat(result.simulations);
+                        // We clear the beginning of the array when we have enough sim
+                        if (this.simulations.length > this.baseSimLength * 3) {
+                            this.simIdx -= this.baseSimLength;
+                            this.simulations = this.simulations.slice(this.baseSimLength);
+                        }
                         this.fetchingMoreSim = false;
                     }).catch((e) => {
                         console.log(e);
@@ -314,10 +317,18 @@ export default class Simulator extends React.Component<IProps, IState>{
         }, interval);
     }
 
+    private resetBoids() {
+        this.boids = [];
+        for (let i = 0; i < this.props.params.numberOfBoids; i++) {
+            this.boids.push(new Boid(100, 100));
+        }
+    }
+
     public stop() {
         this.pause();
-        this.reset();
+        this.resetSimulations();
         this.clearCanvas();
+        this.resetBoids();
     }
 
     public pause() {

@@ -24,6 +24,7 @@ export default function SimulatorControls(props: {
     useEffect(() => {
         if (ref.current && animState !== AnimState.STOP) {
             ref.current.restartFromCurrentFrame();
+            setAnimState(AnimState.PLAYING);
         }
     }, [props.params]);
 

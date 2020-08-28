@@ -12,11 +12,6 @@ Obstacles Force / Quadtree / Rules on boid forces
 <input type={"checkbox"}/>
 </label>*/
 
-/*
-TODO
-better sim (prevent double sim, and don't resume on param change, et les sliders)
- */
-
 function OutLink(props: React.PropsWithChildren<{
     link: string
 }>) {
