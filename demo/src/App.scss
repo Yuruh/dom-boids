@@ -45,14 +45,8 @@ h6 {
 }
 
 #grid-wrapper {
-  $offset: 20vw;
-
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-//  column-gap: 0px;
-//  row-gap: 0px;
-  //padding-left: $offset;
-  //padding-right: $offset;
 }
 
 small {
@@ -90,6 +84,7 @@ small {
   border: 1px solid $primary-color ;
   text-align: center;
   height: 100%;
+  width: 100%;
 
   i {
     font-size: 1.5em;

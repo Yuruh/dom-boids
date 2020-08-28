@@ -92,6 +92,7 @@ function Slider(props: {
                onChange={props.onInputChange}
                min={props.min} max={props.max} step={props.step}
                onMouseUp={props.onValueChosen}
+               onTouchEnd={props.onValueChosen}
                //onChange={(e) => onInputChange(e, props.objectKey)}
             //                   onMouseUp={(e) => configProps.onParamsChange(config)}
         />

@@ -2,8 +2,8 @@ import {IPos2D} from "./ProtoInterfaces";
 
 const randomColor = require('randomcolor'); // import the script
 
-const triangleSize = 30;
-const triangleWidthRad = 0.2;
+const triangleSize = 20;
+const triangleWidthRad = 0.13;
 const animUpdateRateMs = 50;
 const imageSize = 40;
 const nbOfImage = 6;
@@ -129,7 +129,9 @@ export default class Boid {
         if (nbOfBoids < nbOfAvatarThreshold) {
             this.drawAvatar(ctx, elapsedTimeMs)
         } else {
-            this.drawTriangle(ctx, this.color);
+            // I can't use this.color, because due to quadtree improvement, order of boids change every frame
+            // To fix i'd to store the boid's color and send through protobuf
+            this.drawTriangle(ctx, color);
         }
 
 /*        this.drawArrowPosVec(ctx, this.position, this.avoidance, "#FF0000")

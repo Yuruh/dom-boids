@@ -79,6 +79,12 @@ export default class Simulator extends React.Component<IProps, IState>{
         }
     }
 
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any) {
+        if (this.props.params.numberOfBoids !== prevProps.params.numberOfBoids) {
+            this.resetBoids();
+        }
+    }
+
 
     private async loadProtobuf() {
         try {
@@ -174,7 +180,7 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids[i].separation = boid.separation || {x: 0, y: 0};
             this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
             this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
-            this.boids[i].draw(this.ctx, "#8BD8BD", simulation.elapsedTimeSecond * 1000, this.boids.length);
+            this.boids[i].draw(this.ctx, "#ffffff", simulation.elapsedTimeSecond * 1000, this.boids.length);
             i++;
         }
         if (simulation.flock.quadTree) {
