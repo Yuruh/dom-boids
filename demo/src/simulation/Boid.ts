@@ -1,10 +1,15 @@
 import {IPos2D} from "./ProtoInterfaces";
 
+const randomColor = require('randomcolor'); // import the script
+
 const triangleSize = 30;
 const triangleWidthRad = 0.2;
 const animUpdateRateMs = 50;
 const imageSize = 40;
 const nbOfImage = 6;
+
+// Beyond this number we draw triangle instead of image,
+const nbOfAvatarThreshold = 500;
 
 export function drawArrow(ctx: CanvasRenderingContext2D, fromX: number, fromY: number, toX: number, toY: number, color: string) {
     const headLen = 10; // length of head in pixels
@@ -61,9 +66,12 @@ export default class Boid {
     // so all boids don't have the same animation
     animStartAt: number;
 
+    color: string;
+
     constructor(posStartX = window.innerWidth / 2, posStartY = window.innerHeight / 2) {
         this.position.x = posStartX;
         this.position.y = posStartY;
+        this.color = randomColor();
 
         for (let i = 0; i < nbOfImage; i++) {
             this.images.push(new Image());
@@ -116,10 +124,13 @@ export default class Boid {
             pos.y + dir.y * 500, color);
     }
 
-    draw(ctx: CanvasRenderingContext2D, color: string, elapsedTimeMs: number) {
+    draw(ctx: CanvasRenderingContext2D, color: string, elapsedTimeMs: number, nbOfBoids: number) {
 
-        this.drawAvatar(ctx, elapsedTimeMs)
-//        this.drawTriangle(ctx, color);
+        if (nbOfBoids < nbOfAvatarThreshold) {
+            this.drawAvatar(ctx, elapsedTimeMs)
+        } else {
+            this.drawTriangle(ctx, this.color);
+        }
 
 /*        this.drawArrowPosVec(ctx, this.position, this.avoidance, "#FF0000")
         this.drawArrowPosVec(ctx, this.position, this.cohesion, "#FF00FF")

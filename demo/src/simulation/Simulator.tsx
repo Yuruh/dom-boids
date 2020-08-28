@@ -41,6 +41,9 @@ export default class Simulator extends React.Component<IProps, IState>{
 
     private intervalId: NodeJS.Timeout = setTimeout(() => {}, 0);
 
+    // To interrupt fetch calls
+    private abortController: AbortController = new AbortController();
+
     constructor(props: IProps) {
         super(props)
         for (let i = 0; i < props.params.numberOfBoids; i++) {
@@ -122,21 +125,29 @@ export default class Simulator extends React.Component<IProps, IState>{
 
         let inputBuffer: Uint8Array = this.Input.encode(msg).finish()
 
+        const signal = this.abortController.signal
         return new Promise((resolve, reject) => {
             fetch(process.env.REACT_APP_API_URL || "http://localhost:8080", {
                 method: 'post',
-                body: inputBuffer
+                body: inputBuffer,
+                signal: signal,
             }).then(function(response) {
                 return response.arrayBuffer();
-            }).then(function(data) {
-                const receivedBuffer = new Uint8Array(data);
+            }).catch((e) => {
+                console.log("Fetch aborted", e);
+            })
+                .then(function(data: ArrayBuffer | void) {
+                    if (!data) {
+                        return;
+                    }
+                    const receivedBuffer = new Uint8Array(data);
 
-                //FIXME makes the animation lag when its tough to decode
-                const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
+                    //FIXME makes the animation lag when its tough to decode
+                    const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
 
-                console.log(ret);
-                resolve(ret);
-            }).catch(reject);
+                    console.log(ret);
+                    resolve(ret);
+                }).catch(reject);
         })
     }
 
@@ -165,7 +176,7 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids[i].separation = boid.separation || {x: 0, y: 0};
             this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
             this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
-            this.boids[i].draw(this.ctx, "#8BD8BD", simulation.elapsedTimeSecond * 1000);
+            this.boids[i].draw(this.ctx, "#8BD8BD", simulation.elapsedTimeSecond * 1000, this.boids.length);
             i++;
         }
         if (simulation.flock.quadTree) {
@@ -176,6 +187,11 @@ export default class Simulator extends React.Component<IProps, IState>{
     }
 
     public restartFromCurrentFrame() {
+        this.abortController.abort();
+        this.fetchingMoreSim = true;
+
+        this.abortController = new AbortController();
+
         this.pause();
         const lastSim: ISimulation = this.simulations[this.simIdx];
         if (!lastSim) {
@@ -192,8 +208,6 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids = this.boids.slice(0, this.props.params.numberOfBoids);
             lastSim.flock.boids = lastSim.flock.boids.slice(0, this.props.params.numberOfBoids);
         }
-
-
         const payload: IInput = this.buildInput();
         this.getNextSimulations(payload, {
             flock: lastSim.flock,
@@ -201,6 +215,7 @@ export default class Simulator extends React.Component<IProps, IState>{
         }).then((result: IOutput) => {
             this.simulations = this.simulations.concat(result.simulations);
             this.baseSimLength = this.simulations.length;
+            this.fetchingMoreSim = false;
         });
         this.resume();
     }
@@ -278,6 +293,9 @@ export default class Simulator extends React.Component<IProps, IState>{
                         // Must have fixed elapsed time before
                         this.simulations = this.simulations.concat(result.simulations);
                         this.fetchingMoreSim = false;
+                    }).catch((e) => {
+                        console.log(e);
+                        console.log("Could not fetch more simulations")
                     });
                 }
                 this.setState({loading: false})

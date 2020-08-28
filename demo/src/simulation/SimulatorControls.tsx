@@ -20,8 +20,9 @@ export default function SimulatorControls(props: {
 
     const [animState, setAnimState] = React.useState(AnimState.STOP);
 
+    // If params changed, we want to recompute the simulation.
     useEffect(() => {
-        if (ref.current) {
+        if (ref.current && animState !== AnimState.STOP) {
             ref.current.restartFromCurrentFrame();
         }
     }, [props.params]);
