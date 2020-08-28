@@ -1,5 +1,7 @@
 import {IPos2D} from "./ProtoInterfaces";
 
+const triangleSize = 30;
+const triangleWidthRad = 0.2;
 const animUpdateRateMs = 50;
 const imageSize = 40;
 const nbOfImage = 6;
@@ -117,6 +119,7 @@ export default class Boid {
     draw(ctx: CanvasRenderingContext2D, color: string, elapsedTimeMs: number) {
 
         this.drawAvatar(ctx, elapsedTimeMs)
+//        this.drawTriangle(ctx, color);
 
 /*        this.drawArrowPosVec(ctx, this.position, this.avoidance, "#FF0000")
         this.drawArrowPosVec(ctx, this.position, this.cohesion, "#FF00FF")
@@ -130,7 +133,9 @@ export default class Boid {
 
     }
 
-/*    private drawTriangle() {
+    private drawTriangle(ctx: CanvasRenderingContext2D, color: string) {
+        const angleRad = Math.atan2(this.direction.y * -1, this.direction.x * -1);
+
         ctx.beginPath();
         ctx.moveTo(this.position.x, this.position.y);
         ctx.lineTo(this.position.x + triangleSize * Math.cos(angleRad + triangleWidthRad),
@@ -140,7 +145,5 @@ export default class Boid {
         ctx.fillStyle = color;
         ctx.fill();
         ctx.closePath();
-        }
-*/
-
+    }
 }

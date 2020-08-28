@@ -7,6 +7,7 @@ export interface IInput {
 }
 
 export interface IParameters {
+    numberOfBoids: number;
     separationScale: number; // How prominent is separation factor. From 0 to 2, default to 1
     cohesionScale: number; // How prominent is cohesion factor. From 0 to 2, default to 1
     alignmentScale: number; // How prominent is alignment factor. From 0 to 2, default to 1

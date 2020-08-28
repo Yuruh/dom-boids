@@ -4,6 +4,7 @@ import Text from "./text";
 import Parameters from "./simulation/Parameters";
 import SimulatorControls from "./simulation/SimulatorControls";
 import TextSection from "./TextSection";
+import {IParameters} from "./simulation/ProtoInterfaces";
 
 /*On pourrait avoir un boutton qui propose d'arrêter les collisions avec les div aussi.
 <label>
@@ -13,8 +14,7 @@ Obstacles Force / Quadtree / Rules on boid forces
 
 /*
 TODO
-responsive
-better sim (prevent double sim, and don't resume on param change)
+better sim (prevent double sim, and don't resume on param change, et les sliders)
  */
 
 function OutLink(props: React.PropsWithChildren<{
@@ -81,53 +81,95 @@ const demo = <TextSection title={<span>
     <i className={"fa fa-star"}/>{Text.star}<i className={"fa fa-star"}/>
 </span>}/>
 
-function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
-    const [config, setConfig] = React.useState<Parameters>(new Parameters());
 
-    function onInputChange(event: ChangeEvent<HTMLInputElement>, key: string) {
+function Slider(props: {
+    title: string,
+    min: number,
+    max: number,
+    step: number,
+    value: number,
+    onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onValueChosen: () => void;
+}) {
+    return <span>
+        {props.title}
+        <input type={"range"} value={props.value} style={{marginLeft: "10px", marginRight: 10}}
+               onChange={props.onInputChange}
+               min={props.min} max={props.max} step={props.step}
+               onMouseUp={props.onValueChosen}
+               //onChange={(e) => onInputChange(e, props.objectKey)}
+            //                   onMouseUp={(e) => configProps.onParamsChange(config)}
+        />
+        {props.value}
+        </span>
+}
+
+function Configuration(props: {onParamsChange:(params: Parameters) => void}) {
+    const [config, setConfig] = React.useState<IParameters>(new Parameters());
+
+    function onInputChange(event: ChangeEvent<HTMLInputElement>, key: keyof Parameters) {
         const updated: Parameters = {
             ...config,
             [key]: Number(event.target.value),
         }
         setConfig(updated);
-        props.onParamsChange(updated);
-    }
-
-    function Slider(props: {
-        objectKey: keyof Parameters,
-        title: string,
-        min: number,
-        max: number,
-        step: number,
-    }) {
-        return <span>
-            {props.title}
-            <input type={"range"} value={config[props.objectKey]} style={{marginLeft: "10px", marginRight: 10}}
-                   onChange={(e) => onInputChange(e, props.objectKey)} min={props.min} max={props.max} step={props.step}/>
-            {config[props.objectKey]}
-        </span>
     }
 
     return <div className={"align-center"}>
         <div className={"section"} id={"config-section"}>
-            <Slider objectKey="numberOfBoids" title={"Number of Boids"} min={1} max={300} step={1}/>
+            <Slider value={config.numberOfBoids}
+                    onInputChange={(e) => onInputChange(e ,"numberOfBoids")}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    title={"Number of Boids"} min={1} max={2000} step={1}/>
             <hr/>
-            <Slider objectKey="visionDistance" title={"Vision Distance"} min={0} max={500} step={1}/>
+            <Slider title={"Vision Distance"} min={0} max={500} step={1}
+                    value={config.visionDistance}
+                    onInputChange={(e) => onInputChange(e ,"visionDistance")}
+                    onValueChosen={() => props.onParamsChange(config)}
+            />
             <br/>
-            <Slider objectKey="obstacleDistance" title={"Obstacle Distance"} min={0} max={500} step={1}/>
+            <Slider title={"Obstacle Distance"} min={0} max={500} step={1}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    onInputChange={(e) => onInputChange(e ,"obstacleDistance")}
+                    value={config.obstacleDistance}
+            />
             <br/>
-            <Slider objectKey="separationDistance" title={"Separation Distance"} min={0} max={500} step={1}/>
+            <Slider title={"Separation Distance"} min={0} max={500} step={1}
+                    onInputChange={(e) => onInputChange(e ,"separationDistance")}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    value={config.separationDistance}
+            />
             <br/>
-            <Slider objectKey="maxLocalFlockmates" title={"Max Local Flockmates"} min={0} max={100} step={1}/>
+            <Slider title={"Max Local Flockmates"} min={0} max={100} step={1}
+                    onInputChange={(e) => onInputChange(e ,"maxLocalFlockmates")}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    value={config.maxLocalFlockmates}
+            />
             <hr/>
 
-            <Slider objectKey="alignmentScale" title={"Alignment"} min={0} max={2} step={0.01}/>
+            <Slider title={"Alignment"} min={0} max={2} step={0.01}
+                    onInputChange={(e) => onInputChange(e ,"alignmentScale")}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    value={config.alignmentScale}
+            />
             <br/>
-            <Slider objectKey="cohesionScale" title={"Cohesion"} min={0} max={2} step={0.01}/>
+            <Slider title={"Cohesion"} min={0} max={2} step={0.01}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    onInputChange={(e) => onInputChange(e ,"cohesionScale")}
+                    value={config.cohesionScale}
+            />
             <br/>
-            <Slider objectKey="separationScale" title={"Separation"} min={0} max={2} step={0.01}/>
+            <Slider title={"Separation"} min={0} max={2} step={0.01}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    onInputChange={(e) => onInputChange(e ,"separationScale")}
+                    value={config.separationScale}
+            />
             <br/>
-            <Slider objectKey="avoidanceScale" title={"Evasion"} min={0} max={2} step={0.01}/>
+            <Slider title={"Evasion"} min={0} max={2} step={0.01}
+                    onValueChosen={() => props.onParamsChange(config)}
+                    onInputChange={(e) => onInputChange(e ,"avoidanceScale")}
+                    value={config.avoidanceScale}
+            />
         </div>
     </div>
 }
@@ -191,7 +233,7 @@ function App() {
                         <br/>
                         All distances are in pixels
                         <hr/>
-                        Boids make decisions by observing what they local flock mates are doing and their environment.
+                        Boids make decisions by observing what their local flock mates are doing and their environment.
                         <br/>
                         <ul>
                             <ParamDescription title={"Vision Distance"} content={"How close boids have to be detect each other"}/>

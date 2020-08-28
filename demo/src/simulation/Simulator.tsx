@@ -131,6 +131,7 @@ export default class Simulator extends React.Component<IProps, IState>{
             }).then(function(data) {
                 const receivedBuffer = new Uint8Array(data);
 
+                //FIXME makes the animation lag when its tough to decode
                 const ret: IOutput = Output.toObject(Output.decode(receivedBuffer)) as IOutput;
 
                 console.log(ret);
@@ -164,7 +165,7 @@ export default class Simulator extends React.Component<IProps, IState>{
             this.boids[i].separation = boid.separation || {x: 0, y: 0};
             this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
             this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
-            this.boids[i].draw(this.ctx, "", simulation.elapsedTimeSecond * 1000);
+            this.boids[i].draw(this.ctx, "#8BD8BD", simulation.elapsedTimeSecond * 1000);
             i++;
         }
         if (simulation.flock.quadTree) {
@@ -273,6 +274,8 @@ export default class Simulator extends React.Component<IProps, IState>{
                         obstaclesNormalVectors: [],
                         elapsedTimeSecond: this.simulations[this.simulations.length - 1].elapsedTimeSecond,
                     }).then((result: IOutput) => {
+                        // FIXME periodically part of this array (when size > baseSImLength * 3 i'd say)
+                        // Must have fixed elapsed time before
                         this.simulations = this.simulations.concat(result.simulations);
                         this.fetchingMoreSim = false;
                     });
@@ -287,7 +290,9 @@ export default class Simulator extends React.Component<IProps, IState>{
     public resume() {
         this.intervalId = setInterval(() => {
             this.update(this.baseSimLength);
-            this.currentTimeMs += interval
+            this.currentTimeMs += interval;
+            //FIXME When browser cannot handle all frames, this slows down the animation
+            //CurrentTImeMS should have as value the actual elapsedTime
         }, interval);
     }
 

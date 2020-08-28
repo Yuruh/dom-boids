@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "DOM Boids",
+  "name": "DOM Boids",
   "icons": [
     {
       "src": "favicon.ico",
