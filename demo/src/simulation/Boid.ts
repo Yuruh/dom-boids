@@ -1,6 +1,6 @@
 import {IPos2D} from "./ProtoInterfaces";
 
-const randomColor = require('randomcolor'); // import the script
+//const randomColor = require('randomcolor'); // import the script
 
 const triangleSize = 20;
 const triangleWidthRad = 0.13;
@@ -66,12 +66,12 @@ export default class Boid {
     // so all boids don't have the same animation
     animStartAt: number;
 
-    color: string;
+    //color: string;
 
     constructor(posStartX = window.innerWidth / 2, posStartY = window.innerHeight / 2) {
         this.position.x = posStartX;
         this.position.y = posStartY;
-        this.color = randomColor();
+//        this.color = randomColor();
 
         for (let i = 0; i < nbOfImage; i++) {
             this.images.push(new Image());

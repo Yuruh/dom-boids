@@ -44,6 +44,18 @@ h6 {
   }
 }
 
+#about-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-behavior: smooth;
+  i {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
 #grid-wrapper {
   display: grid;
   grid-template-columns: repeat(10, 1fr);

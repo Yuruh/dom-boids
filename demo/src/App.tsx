@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Fragment} from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.scss';
 import Text from "./text";
 import Parameters from "./simulation/Parameters";
@@ -174,6 +174,28 @@ function ParamDescription(props: {title: string, content: string}) {
     return <li><strong>{props.title}</strong>: {props.content}</li>
 }
 
+function AboutTitle() {
+    const refOnTitle = React.useRef(null);
+
+    function scrollToTop() {
+        if (refOnTitle && refOnTitle.current) {
+            window.scrollTo({
+                left: 0,
+                // Ts doesn't get that its null
+                // @ts-ignore
+                top: refOnTitle.current.offsetTop - 50,
+                behavior: "smooth"
+            });
+        }
+    }
+
+    return <div id={"about-button"} onClick={scrollToTop}>
+        <i className={"fa fa-chevron-down"}/>
+        <h3 ref={refOnTitle}>{Text.aboutTitle}</h3>
+        <i className={"fa fa-chevron-down"}/>
+    </div>
+}
+
 function App() {
     const [params, setParams] = React.useState<Parameters>(new Parameters());
 
@@ -194,7 +216,7 @@ function App() {
                 setParams(params)
             }/>
             <hr/>
-            <h3>{Text.aboutTitle}</h3>
+           <AboutTitle/>
             {/*Leave some space for boids to pass through*/}
             {// Q&D responsive, see Simulator fixme
                 document.body.offsetWidth > 1230 && <React.Fragment>

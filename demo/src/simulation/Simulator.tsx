@@ -1,6 +1,6 @@
-import {IInput, ILine, IOutput, ISimulation, IPos2D} from "./ProtoInterfaces"
+import {IInput, ILine, IOutput, ISimulation} from "./ProtoInterfaces"
 import Parameters from "./Parameters";
-import Boid, {drawArrow, drawLine} from "./Boid";
+import Boid, {drawLine} from "./Boid";
 import {Root, Type} from "protobufjs";
 import {boundingClientToObstacles} from "./domParsing";
 import React from "react";
@@ -8,7 +8,7 @@ import Loader from "../Loader";
 import {Modal} from "../Modal";
 const protobuf = require("protobufjs");
 
-const interval = 1 / 60 * 1000; // 60 FPS;
+const interval = 1 / 30 * 1000; // 30 FPS;
 
 interface IProps {
     params: Parameters,
@@ -53,7 +53,6 @@ export default class Simulator extends React.Component<IProps, IState>{
             loading: false
         }
 
-
         this.setupCanvas();
         this.loadProtobuf().then(() => {
             console.log("Protobuf loaded")
@@ -85,13 +84,11 @@ export default class Simulator extends React.Component<IProps, IState>{
         }
     }
 
-
     private async loadProtobuf() {
         try {
             this.root = await protobuf.load("map.proto"); //Maybe it could be loaded from an url if needed
             this.Input = this.root.lookupType("Protobuf.Input")
             this.Output = this.root.lookupType("Protobuf.Output")
-
         } catch (e) {
             console.log("Could not load proto")
             throw e;
@@ -174,13 +171,18 @@ export default class Simulator extends React.Component<IProps, IState>{
         }*/
         let i = 0;
         for (const boid of simulation.flock.boids) {
-            this.boids[i].position = boid.position
-            this.boids[i].direction = boid.direction;
-            this.boids[i].avoidance = boid.avoidance || {x: 0, y: 0};
-            this.boids[i].separation = boid.separation || {x: 0, y: 0};
-            this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
-            this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
-            this.boids[i].draw(this.ctx, "#ffffff", simulation.elapsedTimeSecond * 1000, this.boids.length);
+            // To handle out of sync boids number update
+            if (i < this.boids.length) {
+                this.boids[i].position = boid.position
+                this.boids[i].direction = boid.direction;
+                this.boids[i].avoidance = boid.avoidance || {x: 0, y: 0};
+                this.boids[i].separation = boid.separation || {x: 0, y: 0};
+                this.boids[i].cohesion = boid.cohesion || {x: 0, y: 0};
+                this.boids[i].alignment = boid.alignment || {x: 0, y: 0};
+                this.boids[i].draw(this.ctx, "#ffffff", simulation.elapsedTimeSecond * 1000, this.boids.length);
+            } else {
+                console.log("Number of boids doesn't match simulation")
+            }
             i++;
         }
         if (simulation.flock.quadTree) {
@@ -202,16 +204,17 @@ export default class Simulator extends React.Component<IProps, IState>{
             return;
         }
         this.resetSimulations();
-        for (let i = this.boids.length; i < this.props.params.numberOfBoids; i++) {
+
+        // We add boids to lastSim because we use it as the basis for next frames
+        // Boids nb are adjusted in componentDidUpdate()
+        for (let i = lastSim.flock.boids.length; i < this.props.params.numberOfBoids; i++) {
             const boid: Boid = new Boid(100, 100)
-            this.boids.push(boid);
             lastSim.flock.boids.push(boid)
         }
-
-        if (this.props.params.numberOfBoids < this.boids.length) {
-            this.boids = this.boids.slice(0, this.props.params.numberOfBoids);
+        if (this.props.params.numberOfBoids < lastSim.flock.boids.length) {
             lastSim.flock.boids = lastSim.flock.boids.slice(0, this.props.params.numberOfBoids);
         }
+
         const payload: IInput = this.buildInput();
         this.getNextSimulations(payload, {
             flock: lastSim.flock,
@@ -315,6 +318,8 @@ export default class Simulator extends React.Component<IProps, IState>{
     }
 
     public resume() {
+        // We start by pausing in case it's already running
+        this.pause();
         this.intervalId = setInterval(() => {
             this.update(this.baseSimLength);
             this.currentTimeMs += interval;
@@ -323,6 +328,7 @@ export default class Simulator extends React.Component<IProps, IState>{
         }, interval);
     }
 
+    // Clear current boids, and recreate using params nb of boids
     private resetBoids() {
         this.boids = [];
         for (let i = 0; i < this.props.params.numberOfBoids; i++) {
