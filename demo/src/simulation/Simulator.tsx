@@ -8,8 +8,6 @@ import Loader from "../Loader";
 import {Modal} from "../Modal";
 const protobuf = require("protobufjs");
 
-const interval = 1 / 30 * 1000; // 30 FPS;
-
 interface IProps {
     params: Parameters,
 }
@@ -251,13 +249,19 @@ export default class Simulator extends React.Component<IProps, IState>{
         this.resume();
     }
 
+    private getInterval(): number {
+        return 1 / this.props.params.FPS * 1000;
+    }
+
     public prevFrame() {
+        const interval = this.getInterval();
         this.simIdx -= 2;
         this.currentTimeMs -= interval * 2;
         this.update(this.baseSimLength);
     }
 
     public nextFrame() {
+        const interval = this.getInterval();
         this.update(this.baseSimLength);
         this.currentTimeMs += interval
     }
@@ -318,6 +322,8 @@ export default class Simulator extends React.Component<IProps, IState>{
     }
 
     public resume() {
+        const interval = this.getInterval();
+
         // We start by pausing in case it's already running
         this.pause();
         this.intervalId = setInterval(() => {
